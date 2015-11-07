@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using System.IO;
 
 namespace Armoire
 {
@@ -43,9 +44,9 @@ namespace Armoire
         public override void Draw()
         {
             if (this.Selected())
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Exit", new Vector2(100, 150), Color.CadetBlue);
+                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Exit", new Vector2(100, 125), Color.CadetBlue);
             else
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Exit", new Vector2(100, 150), Color.Black);
+                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Exit", new Vector2(100, 125), Color.Black);
         }
 
         public override void Update()
@@ -57,6 +58,42 @@ namespace Armoire
             {
                 MainManager.Instance.gameMan.gState = GameState.game;
                 MainManager.Instance.uiMan.PopScreen();
+            }
+        }
+    }
+
+    public class SaveMapButton : LinkedMenuItem
+    {
+        public SaveMapButton(LinkedMenuScreen screen) : base(screen) { }
+        public SaveMapButton(LinkedMenuScreen screen, LinkedMenuItem left, LinkedMenuItem right, LinkedMenuItem up, LinkedMenuItem down)
+            : base(screen, left, right, up, down) { }
+
+        public override void Draw()
+        {
+            if (this.Selected())
+                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Save Map", new Vector2(100, 150), Color.CadetBlue);
+            else
+                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Save Map", new Vector2(100, 150), Color.Black);
+        }
+
+        public override void Update()
+        {
+            if (!Selected())
+                return;
+            base.Update();
+            if (MainManager.Instance.inputMan.Jump && !MainManager.Instance.inputMan.PrevJump)
+            {
+                BinaryWriter bw = new BinaryWriter(new FileStream("Maps/new.map", FileMode.Create));
+                bw.Write(0x49474A50);
+                bw.Write(MainManager.Instance.gameMan.platforms.Count);
+                foreach (Platform p in MainManager.Instance.gameMan.platforms)
+                {
+                    bw.Write(p.rect.X);
+                    bw.Write(p.rect.Y);
+                    bw.Write(p.rect.Width);
+                    bw.Write(p.rect.Height);
+                }
+                bw.Close();
             }
         }
     }
@@ -74,6 +111,13 @@ namespace Armoire
             menuItems = new List<LinkedMenuItem>();
             menuItems.Add(cb);
             menuItems.Add(eb);
+            if(MainManager.Instance.gameMan.gState == GameState.map_editor)
+            {
+                LinkedMenuItem smb = new SaveMapButton(this);
+                eb.Down = smb;
+                smb.Up = eb;
+                menuItems.Add(smb);
+            }
             this.selectedItem = cb;
         }
 

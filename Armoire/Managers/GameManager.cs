@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -31,7 +32,18 @@ namespace Armoire
 
         public void Initialize()
         {
-            platforms.Add(new Platform(0, 400, 500, 300));
+            //platforms.Add(new Platform(0, 400, 500, 300));
+            BinaryReader br = new BinaryReader(new FileStream("Content/demo.map", FileMode.Open));
+            if (br.ReadUInt32() != 0x49474A50)
+                throw new Exception("Invalid map file magic!");
+
+            int platformCount = br.ReadInt32();
+            for (int i = 0; i < platformCount; i++ )
+            {
+                platforms.Add(new Platform(br.ReadInt32(), br.ReadInt32(), br.ReadInt32(), br.ReadInt32()));
+            }
+            br.Close();
+
             armor.Add(new Helmet(250, 250));
         }
 
@@ -45,12 +57,12 @@ namespace Armoire
             if (MainManager.Instance.inputMan.Pause)
                 if (gState != GameState.paused)
                 {
-                    gState = GameState.paused;
+                    //gState = GameState.paused;
                     MainManager.Instance.uiMan.PushScreen(new PauseScreen());
                 }
                 else
                 {
-                    gState = GameState.game;
+                    //gState = GameState.game;
                     MainManager.Instance.uiMan.PopScreen();
                 }
 

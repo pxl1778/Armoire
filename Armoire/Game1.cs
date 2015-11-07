@@ -105,6 +105,19 @@ namespace Armoire
                         upperRightNow = true;
                     }
                 }
+                else if (MainManager.Instance.inputMan.CurMouseState.RightButton == ButtonState.Pressed && MainManager.Instance.inputMan.PrevMouseState.RightButton != ButtonState.Pressed)
+                {
+
+                    Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    foreach(Platform p in MainManager.Instance.gameMan.platforms)
+                    {
+                        if (p.Collide(pos))
+                        { 
+                           MainManager.Instance.gameMan.platforms.Remove(p);
+                           break;
+                        }
+                    }
+                }
             }
 
             this.gameTime = gameTime;
