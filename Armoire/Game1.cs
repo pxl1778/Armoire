@@ -10,7 +10,7 @@ namespace Armoire
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
 
         public Game1()
         {
@@ -76,7 +76,9 @@ namespace Armoire
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            MainManager.Instance.drawMan.Draw(MainManager.Instance.main.spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
