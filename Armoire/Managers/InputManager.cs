@@ -73,5 +73,37 @@ namespace Armoire
                 return this.curMouseState;
             }
         }
+
+        public Boolean Jump
+        {
+            get
+            {
+                return this.CurGamePadState.IsButtonDown(Buttons.A) || this.CurKeyboardState.IsKeyDown(Keys.Space);
+            }
+        }
+
+        public Boolean Charge
+        {
+            get
+            {
+                return this.CurGamePadState.IsButtonDown(Buttons.B) || this.CurKeyboardState.IsKeyDown(Keys.D);
+            }
+        }
+
+        public Boolean MoveLeft
+        {
+            get
+            {
+                return this.CurGamePadState.ThumbSticks.Left.X < -0.25 || this.CurGamePadState.IsButtonDown(Buttons.DPadLeft) || this.CurKeyboardState.IsKeyDown(Keys.Left);
+            }
+        }
+
+        public Boolean MoveRight
+        {
+            get
+            {
+                return this.CurGamePadState.ThumbSticks.Left.X > 0.25 || this.CurGamePadState.IsButtonDown(Buttons.DPadRight) || this.CurKeyboardState.IsKeyDown(Keys.Right);
+            }
+        }
     }
 }
