@@ -25,6 +25,11 @@ namespace Armoire
             player = new Player();
         }
 
+        public void Update()
+        {
+            player.Update();
+        }
+
         public void Draw(SpriteBatch sb)
         {
             player.Draw(sb);
