@@ -23,27 +23,6 @@ namespace Armoire
             sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
         }
 
-        public void Draw(SpriteBatch sb, DirectionState ds)
-        {
-            position = new Vector2(MainManager.Instance.gameMan.player.pos.X-3, MainManager.Instance.gameMan.player.pos.Y - 4 + 9);
-            if (MainManager.Instance.gameMan.player.pState == PlayerState.charging)
-            {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X , MainManager.Instance.gameMan.player.pos.Y - 4 + 15);
-            }
-            if (MainManager.Instance.gameMan.player.velocity.Y >= 0)
-            {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X-1, MainManager.Instance.gameMan.player.pos.Y - 2 + 8);
-            }
-            if (ds == DirectionState.right)
-            {
-                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
-            }
-            else
-            {
-                sb.Draw(MainManager.Instance.drawMan.spritesheet, position - new Vector2(2, 0), selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.FlipHorizontally, 0);
-            }
-        }
-
         public void Draw(SpriteBatch sb, float frame, DirectionState ds)
         {
             if (frame == 0)
@@ -58,6 +37,14 @@ namespace Armoire
             {
                 position = new Vector2(MainManager.Instance.gameMan.player.pos.X -3, MainManager.Instance.gameMan.player.pos.Y - 2 + 9);
             }
+            if (frame == 3)
+            {
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X-3, MainManager.Instance.gameMan.player.pos.Y - 4+9);
+            }
+            if (frame == 4)
+            {
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X-3, MainManager.Instance.gameMan.player.pos.Y - 4+9);
+            }
             if (ds == DirectionState.right)
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
@@ -68,5 +55,27 @@ namespace Armoire
 
             }
         }
+
+        public void Draw(SpriteBatch sb, DirectionState ds)
+        {
+            position = new Vector2(MainManager.Instance.gameMan.player.pos.X - 1, MainManager.Instance.gameMan.player.pos.Y - 2 + 8);
+            if (MainManager.Instance.inputMan.Charge)
+            {
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X, MainManager.Instance.gameMan.player.pos.Y - 4 + 15);
+            }
+            if (MainManager.Instance.gameMan.player.pState == PlayerState.dashing && ds == DirectionState.left)
+            {
+                position.X += 5;
+            }
+            if (ds == DirectionState.right)
+            {
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
+            }
+            else
+            {
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, position - new Vector2(5, 0), selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.FlipHorizontally, 0);
+            }
+        }
+
     }
 }

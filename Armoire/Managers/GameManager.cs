@@ -20,6 +20,7 @@ namespace Armoire
         public Player player;
         public List<Platform> platforms;
         public List<Armor> armor;
+        public List<Enemy> enemies;
         public GameState gState;
 
         public GameManager()
@@ -27,6 +28,7 @@ namespace Armoire
             player = new Player();
             platforms = new List<Platform>();
             armor = new List<Armor>();
+            enemies = new List<Enemy>();
             Initialize();
         }
 
@@ -52,6 +54,10 @@ namespace Armoire
             player.Update();
 
             MainManager.Instance.uiMan.Update();
+            foreach(Enemy e in enemies)
+            {
+                e.Update();
+            }
 
             // Do pause menu
             if (MainManager.Instance.inputMan.Pause)
@@ -78,6 +84,10 @@ namespace Armoire
             foreach(Armor a in armor)
             {
                 a.Draw(sb);
+            }
+            foreach(Enemy e in enemies)
+            {
+                e.Draw(sb);
             }
         }
     }

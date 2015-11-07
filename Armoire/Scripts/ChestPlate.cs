@@ -32,6 +32,14 @@ namespace Armoire
             {
                 position = new Vector2(MainManager.Instance.gameMan.player.pos.X, MainManager.Instance.gameMan.player.pos.Y - 2 + 8);
             }
+            if (frame == 3)
+            {
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X, MainManager.Instance.gameMan.player.pos.Y - 4+8);
+            }
+            if (frame == 4)
+            {
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X, MainManager.Instance.gameMan.player.pos.Y - 4+8);
+            }
             if (ds == DirectionState.right)
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
@@ -45,14 +53,14 @@ namespace Armoire
 
         public void Draw(SpriteBatch sb, DirectionState ds)
         {
-            position = new Vector2(MainManager.Instance.gameMan.player.pos.X, MainManager.Instance.gameMan.player.pos.Y - 4 + 8);
-            if (MainManager.Instance.gameMan.player.pState == PlayerState.charging)
+            position = new Vector2(MainManager.Instance.gameMan.player.pos.X , MainManager.Instance.gameMan.player.pos.Y - 2 + 8);
+            if (MainManager.Instance.inputMan.Charge)
             {
                 position = new Vector2(MainManager.Instance.gameMan.player.pos.X +4, MainManager.Instance.gameMan.player.pos.Y - 4 + 15);
             }
-            if (MainManager.Instance.gameMan.player.velocity.Y >= 0)
+            if (MainManager.Instance.gameMan.player.pState == PlayerState.dashing && ds == DirectionState.left)
             {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X+2, MainManager.Instance.gameMan.player.pos.Y - 2 + 8);
+                position.X += 5;
             }
             if (ds == DirectionState.right)
             {
