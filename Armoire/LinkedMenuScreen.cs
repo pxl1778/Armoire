@@ -62,49 +62,6 @@ namespace Armoire
         //public void 
     }
 
-    public class CoolButton : LinkedMenuItem
-    {
-        public CoolButton(LinkedMenuScreen screen) : base(screen) { }
-        public CoolButton(LinkedMenuScreen screen, LinkedMenuItem left, LinkedMenuItem right, LinkedMenuItem up, LinkedMenuItem down)
-            : base(screen, left, right, up, down){}
-      
-
-        public override void Draw()
-        {
-            if(this.Selected())
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Im a selected button!", new Vector2(100, 100), Color.Black);
-            else
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Im not selected anymore :(", new Vector2(100, 100), Color.Black);
-        }
-    }
-
-    public class ExitButton : LinkedMenuItem
-    {
-        public ExitButton(LinkedMenuScreen screen) : base(screen) { }
-        public ExitButton(LinkedMenuScreen screen, LinkedMenuItem left, LinkedMenuItem right, LinkedMenuItem up, LinkedMenuItem down)
-            : base(screen, left, right, up, down) { }
-
-        public override void Draw()
-        {
-            if (this.Selected())
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Exit selected", new Vector2(100, 150), Color.Black);
-            else
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Exit not selected", new Vector2(100, 150), Color.Black);
-        }
-
-        public override void Update()
-        {
-            if (!Selected())
-                return;
-            base.Update();
-            if (MainManager.Instance.inputMan.Jump && !MainManager.Instance.inputMan.PrevJump)
-            {
-                MainManager.Instance.gameMan.gState = GameState.game;
-                MainManager.Instance.uiMan.PopScreen();
-            }
-        }
-    }
-
     public abstract class LinkedMenuScreen : IScreen
     {
         public LinkedMenuItem selectedItem;
@@ -133,7 +90,7 @@ namespace Armoire
 
         public TestMenu()
         {
-            LinkedMenuItem cb = new CoolButton(this);
+            LinkedMenuItem cb = new MainMenuButton(this);
             LinkedMenuItem eb = new ExitButton(this, null, null, cb, null);
             cb.Down = eb;
             menuItems = new List<LinkedMenuItem>();

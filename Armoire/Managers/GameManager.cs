@@ -43,7 +43,7 @@ namespace Armoire
                 if (gState != GameState.paused)
                 {
                     gState = GameState.paused;
-                    MainManager.Instance.uiMan.PushScreen(new TestMenu());
+                    MainManager.Instance.uiMan.PushScreen(new PauseScreen());
                 }
                 else
                 {

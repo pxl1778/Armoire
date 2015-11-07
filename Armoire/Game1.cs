@@ -39,7 +39,7 @@ namespace Armoire
             this.IsMouseVisible = true;
             cam = new Camera(this, MainManager.Instance.gameMan.player.Rect);
             cam.Position = MainManager.Instance.gameMan.player.pos;
-
+            MainManager.Instance.uiMan.PushScreen(new TitleScreen());
         }
 
         /// <summary>
