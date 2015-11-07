@@ -10,7 +10,7 @@ namespace Armoire
 {
     enum GameState
     {
-        title, game
+        title, game, paused
     }
 
     class GameManager
@@ -35,6 +35,22 @@ namespace Armoire
         public void Update()
         {
             player.Update();
+
+            MainManager.Instance.uiMan.Update();
+
+            // Do pause menu
+            if (MainManager.Instance.inputMan.Pause)
+                if (gState != GameState.paused)
+                {
+                    gState = GameState.paused;
+                    MainManager.Instance.uiMan.PushScreen(new PauseScreen());
+                }
+                else
+                {
+                    gState = GameState.game;
+                    MainManager.Instance.uiMan.PopScreen();
+                }
+
         }
 
         public void Draw(SpriteBatch sb)

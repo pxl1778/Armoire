@@ -12,6 +12,7 @@ namespace Armoire
         //Fields
         public Texture2D rectTexture;
         public Texture2D spritesheet;
+        public SpriteFont gameFont;
 
         public DrawManager()
         {
