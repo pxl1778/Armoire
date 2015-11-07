@@ -66,6 +66,7 @@ namespace Armoire
 
         }
 
+
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(MainManager.Instance.drawMan.rectTexture, rect, Color.Blue);

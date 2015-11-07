@@ -17,6 +17,7 @@ namespace Armoire
     {
         //Fields
         public Player player;
+
         public GameState gState;
 
         public GameManager()
