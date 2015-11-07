@@ -142,7 +142,7 @@ namespace Armoire
                     pState = PlayerState.walking;
                 }
             }
-            else if(pState != PlayerState.jumping)
+            else if(pState != PlayerState.jumping && velocity.X < 1)
             {
                 pState = PlayerState.idle;
             }
@@ -181,6 +181,7 @@ namespace Armoire
                 acceleration.X += 100;
                 canDash = false;
                 chargeCounter = 0;
+                pState = PlayerState.dashing;
             }
             if (!MainManager.Instance.inputMan.Charge && canDash && dState == DirectionState.left)
             {
@@ -223,7 +224,7 @@ namespace Armoire
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 frame * 25,
                                                 0,
-                                                26,
+                                                23,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 helmets.Peek().Draw(sb, frame, dState);
                 chestplates.Peek().Draw(sb, frame, dState);
@@ -234,7 +235,7 @@ namespace Armoire
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 frame * 25,
                                                 0,
-                                                24,
+                                                23,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
                 helmets.Peek().Draw(sb, frame, dState);
                 chestplates.Peek().Draw(sb, frame, dState);
@@ -245,7 +246,7 @@ namespace Armoire
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 0,
                                                 0,
-                                                24,
+                                                22,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 helmets.Peek().Draw(sb, dState);
                 chestplates.Peek().Draw(sb, dState);
@@ -256,29 +257,29 @@ namespace Armoire
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 0,
                                                 0,
-                                                24,
+                                                22,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
                 helmets.Peek().Draw(sb, dState);
                 chestplates.Peek().Draw(sb, dState);
                 gloves.Peek().Draw(sb, dState);
             }
-            if(velocity.Y>0 && dState == DirectionState.right)
+            if(velocity.Y>0 && dState == DirectionState.right && pState != PlayerState.charging)
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
-                                                50,
+                                                127,
                                                 0,
-                                                24,
+                                                23,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 helmets.Peek().Draw(sb, dState);
                 chestplates.Peek().Draw(sb, dState);
                 gloves.Peek().Draw(sb, dState);
             }
-            if (velocity.Y > 0 && dState == DirectionState.left)
+            if (velocity.Y > 0 && dState == DirectionState.left && pState != PlayerState.charging)
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
-                                                50,
+                                                127,
                                                 0,
-                                                24,
+                                                23,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
                 helmets.Peek().Draw(sb, dState);
                 chestplates.Peek().Draw(sb, dState);
@@ -289,7 +290,7 @@ namespace Armoire
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 50,
                                                 0,
-                                                24,
+                                                23,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 helmets.Peek().Draw(sb, dState);
                 chestplates.Peek().Draw(sb, dState);
@@ -300,13 +301,56 @@ namespace Armoire
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 50,
                                                 0,
-                                                24,
+                                                23,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
                 helmets.Peek().Draw(sb, dState);
                 chestplates.Peek().Draw(sb, dState);
                 gloves.Peek().Draw(sb, dState);
             }
-            
+            if(pState == PlayerState.charging && dState == DirectionState.right)
+            {
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
+                                                154,
+                                                0,
+                                                28,
+                                                45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
+            }
+            if (pState == PlayerState.charging && dState == DirectionState.left)
+            {
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
+                                                154,
+                                                0,
+                                                28,
+                                                45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
+                helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
+            }
+            if (pState == PlayerState.dashing && dState == DirectionState.right)
+            {
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
+                                                154,
+                                                0,
+                                                35,
+                                                45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
+            }
+            if (pState == PlayerState.dashing && dState == DirectionState.left)
+            {
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
+                                                175,
+                                                0,
+                                                35,
+                                                45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
+                helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
+            }
         }
 
         public void Animation()
