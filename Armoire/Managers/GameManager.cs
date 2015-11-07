@@ -17,12 +17,19 @@ namespace Armoire
     {
         //Fields
         public Player player;
-
+        public List<Platform> platforms;
         public GameState gState;
 
         public GameManager()
         {
             player = new Player();
+            platforms = new List<Platform>();
+            InitializePlatforms();
+        }
+
+        public void InitializePlatforms()
+        {
+            platforms.Add(new Platform(0, 400, 500, 300));
         }
 
         public void Update()
@@ -49,6 +56,10 @@ namespace Armoire
         public void Draw(SpriteBatch sb)
         {
             player.Draw(sb);
+            foreach(Platform p in platforms)
+            {
+                p.Draw(sb);
+            }
         }
     }
 }

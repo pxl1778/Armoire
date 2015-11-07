@@ -42,7 +42,7 @@ namespace Armoire
             viewportHeight = mainMan.GraphicsDevice.Viewport.Height;
             viewportWidth = mainMan.GraphicsDevice.Viewport.Width;
             screenCenter = new Vector2(viewportWidth / 2, viewportHeight / 2);
-            moveSpeed = 1.25f;
+            moveSpeed = .5f;
             transform = Matrix.Identity;
             position = new Vector2(0, 0);
             scale = 1f;
@@ -55,8 +55,8 @@ namespace Armoire
             transform = Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
                         Matrix.CreateTranslation(new Vector3(origin.X, origin.Y, 0)) *
                         Matrix.CreateScale(new Vector3(scale, scale, 0));
-            position.X += MainManager.Instance.gameMan.player.velocity.X;
-            position.Y += MainManager.Instance.gameMan.player.velocity.Y;
+            position.X =  MainManager.Instance.gameMan.player.pos.X * scale;
+            position.Y =  MainManager.Instance.gameMan.player.pos.Y * scale;
         }
     }
 }
