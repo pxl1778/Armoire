@@ -51,6 +51,9 @@ namespace Armoire
 
         public void Update()
         {
+            pos += velocity;
+            rect.X = (int)pos.X;
+            rect.Y = (int)pos.Y;
             CalculateSteeringForces();
         }
 
@@ -69,6 +72,7 @@ namespace Armoire
 
         public void Draw(SpriteBatch sb)
         {
+            sb.Draw(MainManager.Instance.drawMan.rectTexture, new Rectangle(10, 10, 40, 40), Color.Blue);
             sb.Draw(MainManager.Instance.drawMan.rectTexture, rect, Color.Blue);
         }
     }

@@ -11,6 +11,7 @@ namespace Armoire
     {
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
+        Camera cam;
 
         public Game1()
         {
@@ -29,6 +30,8 @@ namespace Armoire
             base.Initialize();
             MainManager.init(this);
             this.IsMouseVisible = true;
+            cam = new Camera(this, MainManager.Instance.gameMan.player.Rect);
+            cam.Position = MainManager.Instance.gameMan.player.pos;
 
         }
 
@@ -61,6 +64,21 @@ namespace Armoire
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            MainManager.Instance.inputMan.Update();
+   
+            if (MainManager.Instance.inputMan.MoveLeft)
+                MainManager.Instance.gameMan.player.velocity.X = -5;
+            else if (MainManager.Instance.inputMan.MoveRight)
+                MainManager.Instance.gameMan.player.velocity.X = 5;
+            else
+                MainManager.Instance.gameMan.player.velocity.X = 0;
+
+            cam.Scale += MainManager.Instance.inputMan.CurGamePadState.Triggers.Right / 10;
+            cam.Scale -= MainManager.Instance.inputMan.CurGamePadState.Triggers.Left / 10;
+
+            MainManager.Instance.gameMan.player.Update();
+            cam.Update();
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -77,7 +95,11 @@ namespace Armoire
         {
             GraphicsDevice.Clear(Color.DarkKhaki);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, cam.Transform);
+
+            // Temporary stuff for drawing another shape
+            //Rectangle rect = new Rectangle(10, 10, 40, 40);
+
             MainManager.Instance.drawMan.Draw(MainManager.Instance.main.spriteBatch);
             spriteBatch.End();
 
