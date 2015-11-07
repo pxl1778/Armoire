@@ -32,6 +32,8 @@ namespace Armoire
         public float maxForce;
         public float decceleration;
         public bool canJump;
+        public Stack<Helmet> helmets;
+    
 
         public PlayerState pState;
         public DirectionState dState;
@@ -64,6 +66,7 @@ namespace Armoire
             maxSpeed = new Vector2(3f, 5f);
             decceleration = .9f;
             canJump = true;
+            helmets = new Stack<Helmet>();
         }
 
         public void Update()
@@ -168,31 +171,32 @@ namespace Armoire
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 frame * 25,
-                                                3,
+                                                0,
                                                 26,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                sb.Draw()
             }
             if(pState == PlayerState.walking && dState == DirectionState.left && velocity.Y <=0)
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 frame * 25,
-                                                3,
+                                                0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
             }
-            if(pState == PlayerState.idle && dState == DirectionState.right && velocity.Y < 0)
+            if(pState == PlayerState.idle && dState == DirectionState.right && velocity.Y <= 0)
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 0,
-                                                3,
+                                                0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             }
-            if (pState == PlayerState.idle &&  dState == DirectionState.left && velocity.Y < 0)
+            if (pState == PlayerState.idle &&  dState == DirectionState.left && velocity.Y <= 0)
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 0,
-                                                3,
+                                                0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
             }
@@ -200,7 +204,7 @@ namespace Armoire
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 50,
-                                                3,
+                                                0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             }
@@ -208,7 +212,7 @@ namespace Armoire
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 50,
-                                                3,
+                                                0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
             }
@@ -216,7 +220,7 @@ namespace Armoire
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 50,
-                                                3,
+                                                0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
             }
@@ -224,7 +228,7 @@ namespace Armoire
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
                                                 50,
-                                                3,
+                                                0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
             }

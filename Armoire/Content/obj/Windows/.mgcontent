@@ -4,6 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Gabriel Kirkpatrick/Documents/armoire/Armoire/Content/GameFont.spritefont</File>
+    <File>C:/armoire/Armoire/Content/GameFont.spritefont</File>
   </SourceFiles>
 </SourceFileCollection>

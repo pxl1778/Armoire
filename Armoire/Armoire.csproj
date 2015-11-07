@@ -48,6 +48,7 @@
     <Compile Include="Managers\MainManager.cs" />
     <Compile Include="Managers\UIManager.cs" />
     <Compile Include="Scripts\Armor.cs" />
+    <Compile Include="Scripts\Helmet.cs" />
     <Compile Include="Scripts\Platform.cs" />
     <Compile Include="Scripts\Player.cs" />
     <Compile Include="PauseScreen.cs" />

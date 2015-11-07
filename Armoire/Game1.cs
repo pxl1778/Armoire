@@ -51,9 +51,8 @@ namespace Armoire
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             MainManager.Instance.drawMan.spritesheet = Content.Load<Texture2D>("Assets/spritesheet.png");
-
             MainManager.Instance.drawMan.gameFont = Content.Load<SpriteFont>("GameFont");
-           
+          
         }
 
         /// <summary>
