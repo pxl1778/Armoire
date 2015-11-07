@@ -85,6 +85,8 @@ namespace Armoire
             //physics...
             velocity += acceleration;
             velocity = Vector2.Clamp(velocity, maxSpeed * -1, maxSpeed);
+            //CalculateSteeringForces();
+            CheckCollision();
             pos += velocity;
             rect.Location = new Point((int)pos.X, (int)pos.Y);
             acceleration = new Vector2(0, 0);
@@ -148,7 +150,7 @@ namespace Armoire
             }
             steeringForce = Vector2.Clamp(steeringForce, new Vector2(-maxForce, -maxForce), new Vector2(maxForce, maxForce));
             acceleration += steeringForce;
-            CheckCollision();
+            //CheckCollision();
             steeringForce = new Vector2(0, 0);
         }
 
@@ -159,14 +161,70 @@ namespace Armoire
         {
             foreach (Platform p in MainManager.Instance.gameMan.platforms)
             {
-                if ((p.Collide(new Vector2(rect.X, rect.Y + rect.Height + 1)) || p.Collide(new Vector2(rect.X + rect.Width, rect.Y + rect.Height + 1))) && pState != PlayerState.jumping)
+
+                if ((p.Collide(new Vector2(rect.X, rect.Y + rect.Height + velocity.Y)) || p.Collide(new Vector2(rect.X + rect.Width, rect.Y + rect.Height + velocity.Y))))// && pState != PlayerState.jumping)
                 {
                     acceleration.Y = 0;
                     velocity.Y = 0;
-                    pos.Y = p.rect.Y-rect.Height;
-                    pState = PlayerState.idle;
+                    //pos.Y = p.rect.Y-rect.Height;
                     canJump = true;
                 }
+                if ((p.Collide(new Vector2(rect.X + velocity.X, rect.Y + rect.Height)) || p.Collide(new Vector2(rect.X + rect.Width + velocity.X, rect.Y + rect.Height))))// && pState != PlayerState.jumping)
+                {
+                    acceleration.X = 0;
+                    velocity.X = 0;
+                    //pos.Y = p.rect.Y - rect.Height;
+                    canJump = false;
+                }
+                if ((p.Collide(new Vector2(rect.X + velocity.X, rect.Y + rect.Height + velocity.Y)) || p.Collide(new Vector2(rect.X + rect.Width + velocity.X, rect.Y + rect.Height + velocity.Y))))// && pState != PlayerState.jumping)
+                {
+                    acceleration.X = 0;
+                    velocity.X = 0;
+                    //pos.Y = p.rect.Y - rect.Height;
+                    canJump = true;
+                }
+                
+                /*
+                if(p.rect.Intersects(new Rectangle((int)Math.Ceiling(rect.X + velocity.X), (int)Math.Ceiling(rect.Y + velocity.Y), rect.Width, rect.Height)) && pState != PlayerState.jumping) //(p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y)) || p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y + rect.Height)))
+                {
+                    acceleration.X = 0;
+                    acceleration.Y = 0;
+                    velocity.X = 0;
+                    velocity.Y = 0;
+                    //pState = PlayerState.idle;
+                    //pos.X = p.rect.X - rect.Width;
+                    canJump = true;
+                }
+                if (p.rect.Intersects(new Rectangle(rect.X, (int)(rect.Y + velocity.Y), rect.Width, rect.Height)) && pState != PlayerState.jumping) //(p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y)) || p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y + rect.Height)))
+                {
+                    //acceleration.X = 0;
+                    acceleration.Y = 0;
+                    //velocity.X = 0;
+                    velocity.Y = 0;
+                    //pState = PlayerState.idle;
+                    //pos.X = p.rect.X - rect.Width;
+                    canJump = true;
+                }
+                if (p.rect.Intersects(new Rectangle((int)(rect.X + velocity.X), rect.Y, rect.Width, rect.Height)) && pState != PlayerState.jumping) //(p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y)) || p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y + rect.Height)))
+                {
+                    acceleration.X = 0;
+                    //acceleration.Y = 0;
+                    velocity.X = 0;
+                    //velocity.Y = 0;
+                    //pState = PlayerState.idle;
+                    //pos.X = p.rect.X - rect.Width;
+                    canJump = true;
+                }
+                if (p.rect.Intersects(new Rectangle((int)(rect.X + velocity.X), (int)(rect.Y + velocity.Y), rect.Width, rect.Height)) && pState != PlayerState.jumping) //(p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y)) || p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y + rect.Height)))
+                {
+                    acceleration.X = 0;
+                    acceleration.Y = 0;
+                    velocity.X = 0;
+                    velocity.Y = 0;
+                    //pState = PlayerState.idle;
+                    //pos.X = p.rect.X - rect.Width;
+                    canJump = true;
+                }*/
             }
         }
 
