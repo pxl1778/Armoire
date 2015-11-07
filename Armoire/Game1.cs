@@ -18,6 +18,9 @@ namespace Armoire
         public SpriteBatch spriteBatch;
         Camera cam;
         public GameTime gameTime;
+        bool upperRightNow = true;
+        Vector2 upperRight;
+        Vector2 lowerLeft;
 
         public Game1()
         {
@@ -83,6 +86,24 @@ namespace Armoire
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+
+            // SUPER HACKY LEVEL EDITOR STUFF
+            if (MainManager.Instance.inputMan.CurMouseState.LeftButton == ButtonState.Pressed && MainManager.Instance.inputMan.PrevMouseState.LeftButton != ButtonState.Pressed)
+            {
+                if (upperRightNow)
+                {
+                    upperRight = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    upperRightNow = false;
+                }
+                else
+                {
+                    Vector2 lowerLeft = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    MainManager.Instance.gameMan.platforms.Add(new Platform((int)upperRight.X, (int)upperRight.Y, (int)(lowerLeft.X - upperRight.X), (int)(lowerLeft.Y - upperRight.Y)));
+                    System.Console.WriteLine("X: {0} Y: {1}", MainManager.Instance.inputMan.CurMouseState.X + cam.Position.X, MainManager.Instance.inputMan.CurMouseState.Y + cam.Position.Y);
+                    upperRightNow = true;
+                }
+            }
 
             this.gameTime = gameTime;
             MainManager.Instance.gameMan.Update();
