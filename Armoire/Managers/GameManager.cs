@@ -10,7 +10,7 @@ namespace Armoire
 {
     enum GameState
     {
-        title, game, paused
+        title, game, paused, map_editor
     }
 
     class GameManager
