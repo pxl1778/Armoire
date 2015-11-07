@@ -177,7 +177,7 @@ namespace Armoire
         {
             get
             {
-                return (this.CurGamePadState.IsButtonDown(Buttons.Start) && this.PrevGamePadState.IsButtonUp(Buttons.Start));
+                return (this.CurGamePadState.IsButtonDown(Buttons.Start) && this.PrevGamePadState.IsButtonUp(Buttons.Start))  || (this.CurKeyboardState.IsKeyDown(Keys.Escape) && this.PrevKeyboardState.IsKeyUp(Keys.Escape));
             }
         }
     }

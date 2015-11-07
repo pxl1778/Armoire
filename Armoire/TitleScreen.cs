@@ -36,6 +36,36 @@ namespace Armoire
         }
     }
 
+    class StartEditorButton : LinkedMenuItem
+    {
+        public StartEditorButton(LinkedMenuScreen screen) : base(screen) { }
+        public StartEditorButton(LinkedMenuScreen screen, LinkedMenuItem left, LinkedMenuItem right, LinkedMenuItem up, LinkedMenuItem down)
+            : base(screen, left, right, up, down) { }
+
+        public override void Draw()
+        {
+            if (!this.Selected())
+                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Start Map Editor", new Vector2(300, 320), Color.Black);
+            else
+                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Start Map Editor", new Vector2(300, 320), Color.CadetBlue);
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            if (!this.Selected())
+                return;
+
+            if (MainManager.Instance.inputMan.Jump && !MainManager.Instance.inputMan.PrevJump)
+            {
+                MainManager.Instance.gameMan = new GameManager();
+                MainManager.Instance.gameMan.gState = GameState.map_editor;
+                MainManager.Instance.uiMan.PopScreen();
+            }
+        }
+    }
+
     class HelpButton : LinkedMenuItem
     {
         public HelpButton(LinkedMenuScreen screen) : base(screen) { }
@@ -45,9 +75,9 @@ namespace Armoire
         public override void Draw()
         {
             if (!this.Selected())
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "How to Play", new Vector2(300, 330), Color.Black);
+                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "How to Play", new Vector2(300, 340), Color.Black);
             else
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "How to Play", new Vector2(300, 330), Color.CadetBlue);
+                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "How to Play", new Vector2(300, 340), Color.CadetBlue);
         }
     }
 
@@ -57,15 +87,25 @@ namespace Armoire
 
         public TitleScreen()
         {
+            // Create all our menu items
             menuItems = new List<LinkedMenuItem>();
             StartGameButton sgb = new StartGameButton(this);
-            menuItems.Add(sgb);
-            this.SelectItem(sgb);
+            StartEditorButton seb = new StartEditorButton(this);
+            HelpButton hb = new HelpButton(this);
 
-            HelpButton hb = new HelpButton(this, null, null, sgb, null);
-            sgb.Down = hb;
+            // Link up the menu items
+            sgb.Down = seb;
+            seb.Up = sgb;
+            seb.Down = hb;
+            hb.Up = seb;
+            
+            // Add the menu items to our collection
+            menuItems.Add(seb);
+            menuItems.Add(sgb);
             menuItems.Add(hb);
 
+            // Select start game by default
+            this.SelectItem(sgb);
         }
 
         public override void Draw()
