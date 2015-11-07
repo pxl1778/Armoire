@@ -50,7 +50,7 @@ namespace Armoire
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            MainManager.Instance.drawMan.playerSpritesheet = Content.Load<Texture2D>("Assets/spritesheet.png");
+            MainManager.Instance.drawMan.spritesheet = Content.Load<Texture2D>("Assets/spritesheet.png");
 
            
         }
@@ -72,13 +72,6 @@ namespace Armoire
         protected override void Update(GameTime gameTime)
         {
             MainManager.Instance.inputMan.Update();
-   
-            if (MainManager.Instance.inputMan.MoveLeft)
-                MainManager.Instance.gameMan.player.velocity.X = -5;
-            else if (MainManager.Instance.inputMan.MoveRight)
-                MainManager.Instance.gameMan.player.velocity.X = 5;
-            else
-                MainManager.Instance.gameMan.player.velocity.X = 0;
 
             cam.Scale += MainManager.Instance.inputMan.CurGamePadState.Triggers.Right / 10;
             cam.Scale -= MainManager.Instance.inputMan.CurGamePadState.Triggers.Left / 10;
