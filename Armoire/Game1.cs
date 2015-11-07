@@ -10,13 +10,12 @@ namespace Armoire
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            MainManager.init(this);
         }
 
         /// <summary>
@@ -27,9 +26,10 @@ namespace Armoire
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
+            MainManager.init(this);
+            this.IsMouseVisible = true;
+
         }
 
         /// <summary>
@@ -41,7 +41,8 @@ namespace Armoire
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+
+           
         }
 
         /// <summary>
@@ -74,9 +75,11 @@ namespace Armoire
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.DarkKhaki);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+            MainManager.Instance.drawMan.Draw(MainManager.Instance.main.spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

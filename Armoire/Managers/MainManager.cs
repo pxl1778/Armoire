@@ -19,16 +19,17 @@ namespace Armoire
 
         public MainManager(Game1 main)
         {
-            uiMan = new UIManager();
-            inputMan = new InputManager();
-            drawMan = new DrawManager();
-            gameMan = new GameManager();
+            
             this.main = main;
         }
 
         public static void init(Game1 main)
         {
             instance = new MainManager(main);
+            instance.uiMan = new UIManager();
+            instance.inputMan = new InputManager();
+            instance.drawMan = new DrawManager();
+            instance.gameMan = new GameManager();
         }
 
         public static MainManager Instance
