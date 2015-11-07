@@ -20,6 +20,7 @@ namespace Armoire
         public Player player;
         public List<Platform> platforms;
         public List<Armor> armor;
+        public List<Armor> armorPickups;
         public GameState gState;
 
         public GameManager()
@@ -27,6 +28,7 @@ namespace Armoire
             player = new Player();
             platforms = new List<Platform>();
             armor = new List<Armor>();
+            armorPickups = new List<Armor>();
             Initialize();
         }
 
@@ -45,6 +47,7 @@ namespace Armoire
             br.Close();
 
             armor.Add(new Helmet(250, 250, player.rand));
+            armorPickups.Add(new Gloves(627, 403, player.rand));
         }
 
         public void Update()
@@ -52,6 +55,7 @@ namespace Armoire
             player.Update();
 
             MainManager.Instance.uiMan.Update();
+            MainManager.Instance.discardMan.Update();
 
             // Do pause menu
             if (MainManager.Instance.inputMan.Pause)
@@ -78,6 +82,10 @@ namespace Armoire
             foreach(Armor a in armor)
             {
                 a.Draw(sb);
+            }
+            foreach(Armor ap in armorPickups)
+            {
+                ap.DrawPickup(sb);
             }
         }
     }

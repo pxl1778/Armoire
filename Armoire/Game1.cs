@@ -80,8 +80,10 @@ namespace Armoire
             cam.Scale += MainManager.Instance.inputMan.CurGamePadState.Triggers.Right / 10;
             cam.Scale -= MainManager.Instance.inputMan.CurGamePadState.Triggers.Left / 10;
 
-
             cam.Update();
+
+            if (MainManager.Instance.inputMan.CurGamePadState.IsButtonDown(Buttons.Y) && MainManager.Instance.inputMan.PrevGamePadState.IsButtonUp(Buttons.Y))
+                MainManager.Instance.discardMan.DiscardArmor(MainManager.Instance.gameMan.player.gloves.Pop());
 
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
@@ -140,6 +142,7 @@ namespace Armoire
             //Rectangle rect = new Rectangle(10, 10, 40, 40);
 
             MainManager.Instance.drawMan.Draw(MainManager.Instance.main.spriteBatch);
+            MainManager.Instance.discardMan.Draw(MainManager.Instance.main.spriteBatch);
             spriteBatch.End();
 
             // Draw UI last because it uses a different spriteBatch

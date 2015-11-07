@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 namespace Armoire
 {
 
-    class Armor
+    abstract class Armor
     {
         public Vector2 position;
         public Rectangle selectionRect;
@@ -20,7 +20,12 @@ namespace Armoire
             
         }
 
-        public void Draw(SpriteBatch sb)
+        public virtual void DrawPickup(SpriteBatch sb)
+        {
+
+        }
+
+        public virtual void Draw(SpriteBatch sb)
         {
 
         }

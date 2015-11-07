@@ -159,7 +159,7 @@ namespace Armoire
         /// </summary>
         public void CalculateSteeringForces()
         {
-            if (pState != PlayerState.jumping && MainManager.Instance.inputMan.Jump && canJump)
+            if (pState != PlayerState.jumping && MainManager.Instance.inputMan.Jump && !MainManager.Instance.inputMan.PrevJump && canJump)
             {
                 steeringForce.Y -= 10;
                 pState = PlayerState.jumping;
@@ -205,6 +205,23 @@ namespace Armoire
         /// </summary>
         public void CheckCollision()
         {
+            List<Armor> armorToRemove = new List<Armor>();
+            foreach (Armor a in MainManager.Instance.gameMan.armorPickups)
+            {
+                if (rect.Intersects(new Rectangle((int)a.position.X, (int)a.position.Y, 1, 1)))
+                {
+                    if (a is Gloves)
+                    {
+                        gloves.Push((Gloves)a);
+                        armorToRemove.Add(a);
+                    }
+                }
+            }
+
+            foreach(Armor a in armorToRemove)
+                MainManager.Instance.gameMan.armorPickups.Remove(a);
+            
+
             foreach (Platform p in MainManager.Instance.gameMan.platforms)
             {
 

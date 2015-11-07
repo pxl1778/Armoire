@@ -15,6 +15,7 @@ namespace Armoire
         public InputManager inputMan;
         public DrawManager drawMan;
         public GameManager gameMan;
+        public DiscardManager discardMan;
         public Game1 main;
 
         public MainManager(Game1 main)
@@ -30,6 +31,7 @@ namespace Armoire
             instance.inputMan = new InputManager();
             instance.drawMan = new DrawManager();
             instance.gameMan = new GameManager();
+            instance.discardMan = new DiscardManager();
         }
 
         public static MainManager Instance
