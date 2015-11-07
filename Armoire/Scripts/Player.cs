@@ -33,7 +33,8 @@ namespace Armoire
         public float decceleration;
         public bool canJump;
         public Stack<Helmet> helmets;
-    
+        public Stack<ChestPlate> chestplates;
+        public Stack<Gloves> gloves;
 
         public PlayerState pState;
         public DirectionState dState;
@@ -67,6 +68,7 @@ namespace Armoire
             decceleration = .9f;
             canJump = true;
             helmets = new Stack<Helmet>();
+            chestplates = new Stack<ChestPlate>();
             Initialize();
         }
 

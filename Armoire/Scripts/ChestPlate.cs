@@ -18,5 +18,10 @@ namespace Armoire
             selectionRect = new Rectangle((22 * r.Next(0, 4)), 49, 22, 16);
             color = Color.FromNonPremultiplied(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255), 500);
         }
+
+        public void Draw(SpriteBatch sb)
+        {
+
+        }
     }
 }
