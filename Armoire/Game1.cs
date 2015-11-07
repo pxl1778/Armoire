@@ -16,6 +16,7 @@ namespace Armoire
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            MainManager.init(this);
         }
 
         /// <summary>

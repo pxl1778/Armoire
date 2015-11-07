@@ -39,6 +39,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="Managers\DrawManager.cs" />
+    <Compile Include="Managers\GameManager.cs" />
+    <Compile Include="Managers\InputManager.cs" />
+    <Compile Include="Managers\MainManager.cs" />
+    <Compile Include="Managers\UIManager.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
