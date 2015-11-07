@@ -108,5 +108,13 @@ namespace Armoire
                 return this.CurGamePadState.ThumbSticks.Left.X > move_threshold || this.CurGamePadState.IsButtonDown(Buttons.DPadRight) || this.CurKeyboardState.IsKeyDown(Keys.Right);
             }
         }
+
+        public Boolean Pause
+        {
+            get
+            {
+                return (this.CurGamePadState.IsButtonDown(Buttons.Start) && this.PrevGamepadState.IsButtonUp(Buttons.Start));
+            }
+        }
     }
 }

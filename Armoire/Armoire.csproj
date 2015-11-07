@@ -40,11 +40,13 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="IScreen.cs" />
     <Compile Include="Managers\DrawManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
     <Compile Include="Managers\MainManager.cs" />
     <Compile Include="Managers\UIManager.cs" />
+    <Compile Include="PauseScreen.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\GameFont.spritefont">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

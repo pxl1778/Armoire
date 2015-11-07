@@ -51,7 +51,7 @@ namespace Armoire
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             MainManager.Instance.drawMan.playerSpritesheet = Content.Load<Texture2D>("Assets/spritesheet.png");
-
+            MainManager.Instance.drawMan.gameFont = Content.Load<SpriteFont>("GameFont");
            
         }
 
@@ -71,6 +71,7 @@ namespace Armoire
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            // DEBUG "STUFF"
             MainManager.Instance.inputMan.Update();
    
             if (MainManager.Instance.inputMan.MoveLeft)
@@ -83,7 +84,7 @@ namespace Armoire
             cam.Scale += MainManager.Instance.inputMan.CurGamePadState.Triggers.Right / 10;
             cam.Scale -= MainManager.Instance.inputMan.CurGamePadState.Triggers.Left / 10;
 
-            //MainManager.Instance.gameMan.player.Update();
+
             cam.Update();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -110,6 +111,9 @@ namespace Armoire
 
             MainManager.Instance.drawMan.Draw(MainManager.Instance.main.spriteBatch);
             spriteBatch.End();
+
+            // Draw UI last because it uses a different spriteBatch
+            MainManager.Instance.uiMan.Draw();
 
             base.Draw(gameTime);
         }
