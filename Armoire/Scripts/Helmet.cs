@@ -11,9 +11,8 @@ namespace Armoire
 {
     class Helmet : Armor
     {
-        public Helmet(int x, int y)
+        public Helmet(int x, int y, Random r)
         {
-            Random r = new Random();
             position = new Vector2(x, y);
             selectionRect = new Rectangle((22 * r.Next(0, 4)), 49, 22, 16);
             color = Color.FromNonPremultiplied(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255), 500);

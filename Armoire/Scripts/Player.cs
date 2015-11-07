@@ -32,9 +32,12 @@ namespace Armoire
         public float maxForce;
         public float decceleration;
         public bool canJump;
+        public bool canDash;
         public Stack<Helmet> helmets;
         public Stack<ChestPlate> chestplates;
         public Stack<Gloves> gloves;
+        public Random rand;
+        public int armorLevel;
 
         public PlayerState pState;
         public DirectionState dState;
@@ -43,6 +46,7 @@ namespace Armoire
         double timeCounter;
         double fps;
         double timePerFrame;
+        double chargeCounter;
         
         //Properties
         public int Width { get { return width; } set { width = value; } }
@@ -69,22 +73,47 @@ namespace Armoire
             canJump = true;
             helmets = new Stack<Helmet>();
             chestplates = new Stack<ChestPlate>();
+            gloves = new Stack<Gloves>();
+            rand = new Random();
+            chargeCounter = 0.0;
+            armorLevel = 0;
             Initialize();
         }
 
         public void Initialize()
         {
-            helmets.Push(new Helmet(0, 0));
+            helmets.Push(new Helmet(0, 0, rand));
+            chestplates.Push(new ChestPlate(250, 250, rand));
+            gloves.Push(new Gloves(250, 250, rand));
         }
 
         public void Update()
         {
-            //Check for changing states
+            //Check for changing states and Calculating Forces
             CalculateSteeringForces();
             StateUpdate();
-            //physics...
+            if(pState == PlayerState.charging)
+            {
+                chargeCounter += MainManager.Instance.main.gameTime.ElapsedGameTime.TotalSeconds;
+                if(chargeCounter > .8)
+                {
+                    canDash = true;
+                }
+                else
+                {
+                    canDash = false;
+                }
+            }
+            //physics
             velocity += acceleration;
-            velocity = Vector2.Clamp(velocity, maxSpeed * -1, maxSpeed);
+            if(!canDash)
+            {
+                velocity = Vector2.Clamp(velocity, maxSpeed * -1, maxSpeed);
+            }
+            else
+            {
+                velocity = Vector2.Clamp(velocity, maxSpeed * -3, maxSpeed * 3);
+            }
             pos += velocity;
             rect.Location = new Point((int)pos.X, (int)pos.Y);
             acceleration = new Vector2(0, 0);
@@ -117,6 +146,11 @@ namespace Armoire
             {
                 pState = PlayerState.idle;
             }
+
+            if(MainManager.Instance.inputMan.Charge)
+            {
+                pState = PlayerState.charging;
+            }
         }
 
         /// <summary>
@@ -134,13 +168,25 @@ namespace Armoire
             {
                 steeringForce.Y += .1f;
             }
-            if(MainManager.Instance.inputMan.MoveLeft)
+            if(MainManager.Instance.inputMan.MoveLeft && pState != PlayerState.charging)
             {
                 steeringForce.X -= 1;
             }
-            else if(MainManager.Instance.inputMan.MoveRight)
+            else if(MainManager.Instance.inputMan.MoveRight && pState != PlayerState.charging)
             {
                 steeringForce.X += 1;
+            }
+            if(!MainManager.Instance.inputMan.Charge && canDash && dState == DirectionState.right)
+            {
+                acceleration.X += 100;
+                canDash = false;
+                chargeCounter = 0;
+            }
+            if (!MainManager.Instance.inputMan.Charge && canDash && dState == DirectionState.left)
+            {
+                steeringForce.X -= 10;
+                canDash = false;
+                chargeCounter = 0;
             }
             else
             {
@@ -180,6 +226,8 @@ namespace Armoire
                                                 26,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 helmets.Peek().Draw(sb, frame, dState);
+                chestplates.Peek().Draw(sb, frame, dState);
+                gloves.Peek().Draw(sb, frame, dState);
             }
             if(pState == PlayerState.walking && dState == DirectionState.left && velocity.Y <=0)
             {
@@ -189,6 +237,8 @@ namespace Armoire
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
                 helmets.Peek().Draw(sb, frame, dState);
+                chestplates.Peek().Draw(sb, frame, dState);
+                gloves.Peek().Draw(sb, frame, dState);
             }
             if(pState == PlayerState.idle && dState == DirectionState.right && velocity.Y <= 0)
             {
@@ -198,6 +248,8 @@ namespace Armoire
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
             }
             if (pState == PlayerState.idle &&  dState == DirectionState.left && velocity.Y <= 0)
             {
@@ -207,6 +259,8 @@ namespace Armoire
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
                 helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
             }
             if(velocity.Y>0 && dState == DirectionState.right)
             {
@@ -216,6 +270,8 @@ namespace Armoire
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
             }
             if (velocity.Y > 0 && dState == DirectionState.left)
             {
@@ -225,6 +281,8 @@ namespace Armoire
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
                 helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
             }
             if (pState == PlayerState.jumping && dState == DirectionState.right)
             {
@@ -234,6 +292,8 @@ namespace Armoire
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
                 helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
             }
             if (pState == PlayerState.jumping && dState == DirectionState.left)
             {
@@ -243,6 +303,8 @@ namespace Armoire
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
                 helmets.Peek().Draw(sb, dState);
+                chestplates.Peek().Draw(sb, dState);
+                gloves.Peek().Draw(sb, dState);
             }
             
         }

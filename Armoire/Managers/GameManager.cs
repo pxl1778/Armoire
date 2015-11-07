@@ -44,7 +44,7 @@ namespace Armoire
             }
             br.Close();
 
-            armor.Add(new Helmet(250, 250));
+            armor.Add(new Helmet(250, 250, player.rand));
         }
 
         public void Update()
