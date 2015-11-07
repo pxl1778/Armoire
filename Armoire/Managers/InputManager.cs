@@ -9,6 +9,9 @@ namespace Armoire
 {
     class InputManager
     {
+        // Consts
+        private const float move_threshold = 0.20f;
+
         private GamePadState prvGamePadState;
         private GamePadState curGamePadState;
         private KeyboardState prvKeyboardState;
@@ -94,7 +97,7 @@ namespace Armoire
         {
             get
             {
-                return this.CurGamePadState.ThumbSticks.Left.X < -0.25 || this.CurGamePadState.IsButtonDown(Buttons.DPadLeft) || this.CurKeyboardState.IsKeyDown(Keys.Left);
+                return this.CurGamePadState.ThumbSticks.Left.X < -move_threshold || this.CurGamePadState.IsButtonDown(Buttons.DPadLeft) || this.CurKeyboardState.IsKeyDown(Keys.Left);
             }
         }
 
@@ -102,7 +105,7 @@ namespace Armoire
         {
             get
             {
-                return this.CurGamePadState.ThumbSticks.Left.X > 0.25 || this.CurGamePadState.IsButtonDown(Buttons.DPadRight) || this.CurKeyboardState.IsKeyDown(Keys.Right);
+                return this.CurGamePadState.ThumbSticks.Left.X > move_threshold || this.CurGamePadState.IsButtonDown(Buttons.DPadRight) || this.CurKeyboardState.IsKeyDown(Keys.Right);
             }
         }
     }
