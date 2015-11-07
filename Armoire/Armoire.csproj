@@ -42,6 +42,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="IScreen.cs" />
     <Compile Include="LinkedMenuScreen.cs" />
+    <Compile Include="Managers\DiscardManager.cs" />
     <Compile Include="Managers\DrawManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\InputManager.cs" />
@@ -76,10 +77,13 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\demo.map">
+    <None Include="Content\demo2.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\GameFont.spritefont">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\demo.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -18,7 +18,14 @@ namespace Armoire
             color = Color.FromNonPremultiplied(r.Next(0, 255), r.Next(0, 255), r.Next(0, 255), 500);
         }
 
-        public void Draw(SpriteBatch sb)
+        
+        public override void DrawPickup(SpriteBatch sb)
+        {
+            sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
+        }
+         
+
+        public override void Draw(SpriteBatch sb)
         {
             sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
         }
