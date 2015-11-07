@@ -20,6 +20,9 @@ namespace Armoire
             
         }
 
-        
+        public void Draw(SpriteBatch sb)
+        {
+
+        }
     }
 }

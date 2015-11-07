@@ -55,8 +55,8 @@ namespace Armoire
             transform = Matrix.CreateTranslation(new Vector3(-position.X, -position.Y, 0)) *
                         Matrix.CreateTranslation(new Vector3(origin.X, origin.Y, 0)) *
                         Matrix.CreateScale(new Vector3(scale, scale, 0));
-            position.X =  MainManager.Instance.gameMan.player.pos.X * scale;
-            position.Y =  MainManager.Instance.gameMan.player.pos.Y * scale;
+            position.X =  MainManager.Instance.gameMan.player.pos.X;
+            position.Y =  MainManager.Instance.gameMan.player.pos.Y;
         }
     }
 }

@@ -174,7 +174,7 @@ namespace Armoire
                                                 0,
                                                 26,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
-                sb.Draw()
+                
             }
             if(pState == PlayerState.walking && dState == DirectionState.left && velocity.Y <=0)
             {
