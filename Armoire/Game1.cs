@@ -1,6 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Content;
 
 namespace Armoire
 {
@@ -11,6 +16,7 @@ namespace Armoire
     {
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
+        public GameTime gameTime;
 
         public Game1()
         {
@@ -26,8 +32,9 @@ namespace Armoire
         /// </summary>
         protected override void Initialize()
         {
-            base.Initialize();
             MainManager.init(this);
+            base.Initialize();
+            
             this.IsMouseVisible = true;
 
         }
@@ -40,7 +47,7 @@ namespace Armoire
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            MainManager.Instance.drawMan.playerSpritesheet = Content.Load<Texture2D>("Assets/spritesheet.png");
 
            
         }
@@ -64,7 +71,8 @@ namespace Armoire
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            this.gameTime = gameTime;
+            MainManager.Instance.gameMan.Update();
 
             base.Update(gameTime);
         }

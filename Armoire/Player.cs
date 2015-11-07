@@ -28,8 +28,15 @@ namespace Armoire
         public Vector2 acceleration;
         public Vector2 steeringForce;
         public Vector2 forward;
+        public float maxForce;
+
         public PlayerState pState;
         public DirectionState dState;
+
+        int frame;
+        double timeCounter;
+        double fps;
+        double timePerFrame;
         
         //Properties
         public int Width { get { return width; } set { width = value; } }
@@ -47,11 +54,43 @@ namespace Armoire
             width = 50;
             height = 70;
             rect = new Rectangle((int)pos.X, (int)pos.Y, width, height);
+            fps = 10.0;
+            timePerFrame = 1.0 / fps;
+            frame = 0;
+            maxForce = 20f;
         }
 
         public void Update()
         {
+            StateUpdate();
             CalculateSteeringForces();
+            //physics...
+            Animation();
+            
+        }
+
+        public void StateUpdate()
+        {
+            if(MainManager.Instance.inputMan.Jump)
+            {
+                pState = PlayerState.jumping;
+            }
+            if(MainManager.Instance.inputMan.MoveLeft)
+            {
+                dState = DirectionState.left;
+                if(pState != PlayerState.jumping)
+                {
+                    pState = PlayerState.walking;
+                }
+            }
+            if(MainManager.Instance.inputMan.MoveRight)
+            {
+                dState = DirectionState.right;
+                if(pState != PlayerState.jumping)
+                {
+                    pState = PlayerState.walking;
+                }
+            }
         }
 
         /// <summary>
@@ -59,17 +98,44 @@ namespace Armoire
         /// </summary>
         public void CalculateSteeringForces()
         {
-            if (pState != PlayerState.jumping)
+            if (pState != PlayerState.jumping && MainManager.Instance.inputMan.Jump)
             {
                 steeringForce.Y += 10;
             }
-
+            if(MainManager.Instance.inputMan.MoveLeft)
+            {
+                steeringForce.X -= 3;
+            }
+            if(MainManager.Instance.inputMan.MoveRight)
+            {
+                steeringForce.X += 3;
+            }
+            acceleration += steeringForce;
         }
-
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(MainManager.Instance.drawMan.rectTexture, rect, Color.Blue);
+            if(pState == PlayerState.walking && dState == DirectionState.right)
+            {
+                sb.Draw(MainManager.Instance.drawMan.playerSpritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
+                                                frame * 25,
+                                                0,
+                                                26,
+                                                48), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+            }
+            
+        }
+
+        public void Animation()
+        {
+            timeCounter += MainManager.Instance.main.gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeCounter >= timePerFrame)
+            {
+                frame += 1;
+                if (frame > 2)
+                    frame = 0;
+                timeCounter -= timePerFrame;
+            }
         }
     }
 }
