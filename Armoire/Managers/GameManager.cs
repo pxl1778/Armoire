@@ -18,18 +18,21 @@ namespace Armoire
         //Fields
         public Player player;
         public List<Platform> platforms;
+        public List<Armor> armor;
         public GameState gState;
 
         public GameManager()
         {
             player = new Player();
             platforms = new List<Platform>();
-            InitializePlatforms();
+            armor = new List<Armor>();
+            Initialize();
         }
 
-        public void InitializePlatforms()
+        public void Initialize()
         {
             platforms.Add(new Platform(0, 400, 500, 300));
+            armor.Add(new Helmet(250, 250));
         }
 
         public void Update()
@@ -59,6 +62,10 @@ namespace Armoire
             foreach(Platform p in platforms)
             {
                 p.Draw(sb);
+            }
+            foreach(Armor a in armor)
+            {
+                a.Draw(sb);
             }
         }
     }

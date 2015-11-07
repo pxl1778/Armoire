@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Gabriel Kirkpatrick/Documents/armoire/Armoire/Content/GameFont.spritefont</SourceFile>
-  <SourceTime>2015-01-19T19:24:04-05:00</SourceTime>
-  <DestFile>C:/Users/Gabriel Kirkpatrick/Documents/armoire/Armoire/Content/bin/Windows/GameFont.xnb</DestFile>
-  <DestTime>2015-11-07T07:53:44.770459-05:00</DestTime>
+  <SourceFile>C:/armoire/Armoire/Content/GameFont.spritefont</SourceFile>
+  <SourceTime>2015-11-07T10:43:50.7132106-05:00</SourceTime>
+  <DestFile>C:/armoire/Armoire/Content/bin/Windows/GameFont.xnb</DestFile>
+  <DestTime>2015-11-07T10:44:10.0524028-05:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2015-04-29T13:14:44-04:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>
