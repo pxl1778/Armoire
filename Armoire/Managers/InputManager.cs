@@ -37,7 +37,7 @@ namespace Armoire
             }
         }
 
-        public GamePadState PrevGamepadState
+        public GamePadState PrevGamePadState
         {
             get
             {
@@ -85,11 +85,27 @@ namespace Armoire
             }
         }
 
+        public Boolean PrevJump
+        {
+            get
+            {
+                return this.PrevGamePadState.IsButtonDown(Buttons.A) || this.PrevKeyboardState.IsKeyDown(Keys.Space);
+            }
+        }
+
         public Boolean Charge
         {
             get
             {
                 return this.CurGamePadState.IsButtonDown(Buttons.B) || this.CurKeyboardState.IsKeyDown(Keys.D);
+            }
+        }
+
+        public Boolean PrevCharge
+        {
+            get
+            {
+                return this.PrevGamePadState.IsButtonDown(Buttons.B) || this.PrevKeyboardState.IsKeyDown(Keys.D);
             }
         }
 
@@ -109,11 +125,59 @@ namespace Armoire
             }
         }
 
+        public Boolean MoveUp
+        {
+            get
+            {
+                return this.CurGamePadState.ThumbSticks.Left.Y > move_threshold || this.CurGamePadState.IsButtonDown(Buttons.DPadUp) || this.CurKeyboardState.IsKeyDown(Keys.Up);
+            }
+        }
+
+        public Boolean MoveDown
+        {
+            get
+            {
+                return this.CurGamePadState.ThumbSticks.Left.Y < -move_threshold || this.CurGamePadState.IsButtonDown(Buttons.DPadDown) || this.CurKeyboardState.IsKeyDown(Keys.Down);
+            }
+        }
+
+        public Boolean PrevMoveLeft
+        {
+            get
+            {
+                return this.PrevGamePadState.ThumbSticks.Left.X < -move_threshold || this.PrevGamePadState.IsButtonDown(Buttons.DPadLeft) || this.PrevKeyboardState.IsKeyDown(Keys.Left);
+            }
+        }
+
+        public Boolean PrevMoveRight
+        {
+            get
+            {
+                return this.PrevGamePadState.ThumbSticks.Left.X > move_threshold || this.PrevGamePadState.IsButtonDown(Buttons.DPadRight) || this.PrevKeyboardState.IsKeyDown(Keys.Right);
+            }
+        }
+
+        public Boolean PrevMoveUp
+        {
+            get
+            {
+                return this.PrevGamePadState.ThumbSticks.Left.Y > move_threshold || this.PrevGamePadState.IsButtonDown(Buttons.DPadUp) || this.PrevKeyboardState.IsKeyDown(Keys.Up);
+            }
+        }
+
+        public Boolean PrevMoveDown
+        {
+            get
+            {
+                return this.PrevGamePadState.ThumbSticks.Left.Y < -move_threshold || this.PrevGamePadState.IsButtonDown(Buttons.DPadDown) || this.PrevKeyboardState.IsKeyDown(Keys.Down);
+            }
+        }
+
         public Boolean Pause
         {
             get
             {
-                return (this.CurGamePadState.IsButtonDown(Buttons.Start) && this.PrevGamepadState.IsButtonUp(Buttons.Start));
+                return (this.CurGamePadState.IsButtonDown(Buttons.Start) && this.PrevGamePadState.IsButtonUp(Buttons.Start));
             }
         }
     }
