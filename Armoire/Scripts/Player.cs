@@ -67,6 +67,12 @@ namespace Armoire
             decceleration = .9f;
             canJump = true;
             helmets = new Stack<Helmet>();
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            helmets.Push(new Helmet(0, 0));
         }
 
         public void Update()
@@ -164,9 +170,6 @@ namespace Armoire
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(MainManager.Instance.drawMan.rectTexture, new Rectangle(10, 10, 40, 40), Color.Blue);
-            sb.Draw(MainManager.Instance.drawMan.rectTexture, rect, Color.Blue);
-
             if (pState == PlayerState.walking && dState == DirectionState.right && velocity.Y <= 0)
             {
                 sb.Draw(MainManager.Instance.drawMan.spritesheet, new Vector2(rect.X, rect.Y), new Rectangle(
@@ -174,7 +177,7 @@ namespace Armoire
                                                 0,
                                                 26,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
-                
+                helmets.Peek().Draw(sb, frame, dState);
             }
             if(pState == PlayerState.walking && dState == DirectionState.left && velocity.Y <=0)
             {
@@ -183,6 +186,7 @@ namespace Armoire
                                                 0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
+                helmets.Peek().Draw(sb, frame, dState);
             }
             if(pState == PlayerState.idle && dState == DirectionState.right && velocity.Y <= 0)
             {
@@ -191,6 +195,7 @@ namespace Armoire
                                                 0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                helmets.Peek().Draw(sb, dState);
             }
             if (pState == PlayerState.idle &&  dState == DirectionState.left && velocity.Y <= 0)
             {
@@ -199,6 +204,7 @@ namespace Armoire
                                                 0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
+                helmets.Peek().Draw(sb, dState);
             }
             if(velocity.Y>0 && dState == DirectionState.right)
             {
@@ -207,6 +213,7 @@ namespace Armoire
                                                 0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                helmets.Peek().Draw(sb, dState);
             }
             if (velocity.Y > 0 && dState == DirectionState.left)
             {
@@ -215,6 +222,7 @@ namespace Armoire
                                                 0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
+                helmets.Peek().Draw(sb, dState);
             }
             if (pState == PlayerState.jumping && dState == DirectionState.right)
             {
@@ -223,6 +231,7 @@ namespace Armoire
                                                 0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.None, 0);
+                helmets.Peek().Draw(sb, dState);
             }
             if (pState == PlayerState.jumping && dState == DirectionState.left)
             {
@@ -231,6 +240,7 @@ namespace Armoire
                                                 0,
                                                 24,
                                                 45), Color.White, 0, Vector2.Zero, 1.0f, SpriteEffects.FlipHorizontally, 0);
+                helmets.Peek().Draw(sb, dState);
             }
             
         }
