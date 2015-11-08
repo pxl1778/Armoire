@@ -16,7 +16,7 @@ namespace Armoire
     {
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
-        Camera cam;
+        public Camera cam;
         public GameTime gameTime;
         bool upperRightNow = true;
         Vector2 upperRight;
@@ -83,7 +83,12 @@ namespace Armoire
             cam.Update();
 
             if (MainManager.Instance.inputMan.CurGamePadState.IsButtonDown(Buttons.Y) && MainManager.Instance.inputMan.PrevGamePadState.IsButtonUp(Buttons.Y))
-                MainManager.Instance.discardMan.DiscardArmor(MainManager.Instance.gameMan.player.gloves.Pop());
+                if(MainManager.Instance.gameMan.player.gloves.Count > 0)
+                    MainManager.Instance.discardMan.DiscardArmor(MainManager.Instance.gameMan.player.gloves.Pop());
+
+            if (MainManager.Instance.inputMan.CurGamePadState.IsButtonDown(Buttons.X) && MainManager.Instance.inputMan.PrevGamePadState.IsButtonUp(Buttons.X))
+                if (MainManager.Instance.gameMan.player.chestplates.Count > 0)
+                    MainManager.Instance.discardMan.DiscardArmor(MainManager.Instance.gameMan.player.chestplates.Pop());
 
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
@@ -119,6 +124,16 @@ namespace Armoire
                            break;
                         }
                     }
+                }
+                else if(MainManager.Instance.inputMan.CurKeyboardState.IsKeyDown(Keys.G) && MainManager.Instance.inputMan.PrevKeyboardState.IsKeyUp(Keys.G))
+                {
+                    Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    MainManager.Instance.gameMan.armorPickups.Add(new Gloves((int)pos.X, (int)pos.Y, MainManager.Instance.gameMan.player.rand));
+                }
+                else if (MainManager.Instance.inputMan.CurKeyboardState.IsKeyDown(Keys.C) && MainManager.Instance.inputMan.PrevKeyboardState.IsKeyUp(Keys.C))
+                {
+                    Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    MainManager.Instance.gameMan.armorPickups.Add(new ChestPlate((int)pos.X, (int)pos.Y, MainManager.Instance.gameMan.player.rand));
                 }
             }
 
