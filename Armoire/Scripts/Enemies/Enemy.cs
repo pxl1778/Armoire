@@ -24,6 +24,8 @@ namespace Armoire
         public int attackRange;
         public float scale;
         public Rectangle rect;
+        public bool invincible;
+        public double invincibleCounter;
 
         public int frame;
         public double timeCounter;
@@ -41,6 +43,8 @@ namespace Armoire
             fps = 7.0;
             timePerFrame = 1.0 / fps;
             attackRange = 130;
+            invincible = false;
+            invincibleCounter = 0;
             scale = 1;
             rect = new Rectangle((int)pos.X, (int)pos.Y, 34, 25);
         }
@@ -52,6 +56,14 @@ namespace Armoire
             {
                 dir *= -1;
                 counter = 0;
+            }
+            if (invincibleCounter < 1)
+            {
+                invincibleCounter += MainManager.Instance.main.gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else
+            {
+                invincible = false;
             }
             playerDistance = MainManager.Instance.gameMan.player.pos.X - pos.X;
             if(Math.Abs(playerDistance) < attackRange)
