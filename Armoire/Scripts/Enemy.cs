@@ -21,6 +21,8 @@ namespace Armoire
         public int dir;
         public int speed;
         public float playerDistance;
+        public int attackRange;
+        public Rectangle rect;
 
         int frame;
         double timeCounter;
@@ -34,6 +36,10 @@ namespace Armoire
             dir = 1;
             eState = EnemyState.idle;
             speed = 1;
+            fps = 7.0;
+            timePerFrame = 1.0 / fps;
+            attackRange = 130;
+            rect = new Rectangle((int)pos.X, (int)pos.Y, 34, 25);
         }
 
         public void Update()
@@ -45,7 +51,7 @@ namespace Armoire
                 counter = 0;
             }
             playerDistance = MainManager.Instance.gameMan.player.pos.X - pos.X;
-            if(Math.Abs(playerDistance) < 70)
+            if(Math.Abs(playerDistance) < attackRange)
             {
                 eState = EnemyState.attacking;
             }
@@ -54,17 +60,25 @@ namespace Armoire
                 eState = EnemyState.idle;
             }
             Movement();
+            rect.X = (int)pos.X;
+            rect.Y = (int)pos.Y;
             Animation();
         }
 
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(MainManager.Instance.drawMan.spritesheet, pos, new Rectangle(
-                                                                        frame * 30,
-                                                                        140,
-                                                                        30,
+                                                                        frame * 34,
+                                                                        125,
+                                                                        34,
                                                                         25), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
+
+        public void Hit()
+        {
+
+        }
+
         public void Movement()
         {
             if(eState == EnemyState.idle)
@@ -75,11 +89,11 @@ namespace Armoire
             {
                 if(playerDistance <=0 )
                 {
-                    pos.X += speed+3;
+                    pos.X -= speed;
                 }
                 else
                 {
-                    pos.X -= speed+3;
+                    pos.X += speed;
                 }
             }
         }
@@ -90,7 +104,7 @@ namespace Armoire
             if (timeCounter >= timePerFrame)
             {
                 frame += 1;
-                if (frame > 4)
+                if (frame > 3)
                     frame = 0;
                 timeCounter -= timePerFrame;
             }

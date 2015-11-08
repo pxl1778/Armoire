@@ -48,6 +48,7 @@ namespace Armoire
             }
             br.Close();
 
+            enemies.Add(new Enemy(250, 250));
             armor.Add(new Helmet(250, 250, player.rand));
             armorPickups.Add(new Gloves(627, 403, player.rand));
         }

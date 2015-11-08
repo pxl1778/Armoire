@@ -222,6 +222,20 @@ namespace Armoire
             foreach(Armor a in armorToRemove)
                 MainManager.Instance.gameMan.armorPickups.Remove(a);
             
+            foreach (Enemy e in MainManager.Instance.gameMan.enemies)
+            {
+                if(e.rect.Intersects(rect))
+                {
+                    if(pState == PlayerState.dashing)
+                    {
+                        e.Hit();
+                    }
+                    else
+                    {
+                        Hit();
+                    }
+                }
+            }
 
             foreach (Platform p in MainManager.Instance.gameMan.platforms)
             {
@@ -289,6 +303,26 @@ namespace Armoire
                     //pos.X = p.rect.X - rect.Width;
                     canJump = true;
                 }*/
+            }
+        }
+
+        public void Hit()
+        {
+            if(gloves.Count != 0)
+            {
+                MainManager.Instance.discardMan.DiscardArmor(gloves.Pop());
+            }
+            else if(helmets.Count != 0)
+            {
+                MainManager.Instance.discardMan.DiscardArmor(helmets.Pop());
+            }
+            else if(chestplates.Count != 0)
+            {
+                MainManager.Instance.discardMan.DiscardArmor(chestplates.Pop());
+            }
+            else
+            {
+
             }
         }
 
