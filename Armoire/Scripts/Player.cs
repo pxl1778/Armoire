@@ -122,11 +122,11 @@ namespace Armoire
             velocity += acceleration;
             if(pState != PlayerState.dashing)
             {
-                velocity = Vector2.Clamp(velocity, maxSpeed * -1, maxSpeed);
+                velocity = Vector2.Clamp(velocity, maxSpeed * -1*armorScale, maxSpeed*armorScale);
             }
             else
             {
-                velocity = Vector2.Clamp(velocity, maxSpeed * -3, maxSpeed * 3);
+                velocity = Vector2.Clamp(velocity, maxSpeed * -3 *armorScale, maxSpeed * 3 *armorScale);
             }
             CheckCollision();
             pos += velocity;
@@ -240,7 +240,7 @@ namespace Armoire
                         helmets.Push((Helmet)a);
                         armorToRemove.Add(a);
                     }
-                    armorScale += .5f;
+                    armorScale += .1f;
                     armorLevel++;
                     width = (int)(23 * armorScale);
                     height = (int)(45 * armorScale);
@@ -258,13 +258,15 @@ namespace Armoire
             {
                 if(e.rect.Intersects(rect) && invincible == false)
                 {
-                    invincible = true;
+                    
                     if(pState == PlayerState.dashing)
                     {
+                        e.invincible = true;
                         e.Hit();
                     }
                     else
                     {
+                        invincible = true;
                         Hit(e.dir);
                     }
                 }
@@ -343,7 +345,14 @@ namespace Armoire
         public void Hit(int direction)
         {
             armorLevel--;
-            velocity.X += 5 * -direction;
+            velocity.X += 5 * -direction *armorScale;
+            armorScale -= .1f;
+            width = (int)(23 * armorScale);
+            height = (int)(45 * armorScale);
+            pos.X -= 12;
+            pos.Y -= 23;
+            rect = new Rectangle(rect.X - 12, rect.Y - 23, width, height);
+            MainManager.Instance.main.cam.Scale = 1.0f / armorScale;
             if(gloves.Count != 0)
             {
                 MainManager.Instance.discardMan.DiscardArmor(gloves.Pop());
