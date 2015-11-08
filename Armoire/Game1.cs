@@ -165,7 +165,7 @@ namespace Armoire
             MainManager.Instance.uiMan.Draw();
             spriteBatch.Begin();
             spriteBatch.Draw(MainManager.Instance.drawMan.rectTexture, new Rectangle(10, 10, 35, 30), Color.White);
-               spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, MainManager.Instance.gameMan.player.armorLevel.ToString(), new Vector2(10, 10), Color.Black, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, MainManager.Instance.gameMan.player.armorLevel.ToString(), new Vector2(10, 10), Color.Black, 0f, Vector2.Zero, 2f, SpriteEffects.None, 0);
             spriteBatch.End();
             base.Draw(gameTime);
         }

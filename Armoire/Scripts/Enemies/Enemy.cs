@@ -14,31 +14,34 @@ namespace Armoire
 
     class Enemy
     {
-        public Stack<Armor> armor;
+        public Stack<Helmet> armor;
         public Vector2 pos;
         public double counter;
         EnemyState eState;
         public int dir;
-        public int speed;
+        public float speed;
         public float playerDistance;
         public int attackRange;
+        public float scale;
         public Rectangle rect;
 
-        int frame;
-        double timeCounter;
-        double fps;
-        double timePerFrame;
+        public int frame;
+        public double timeCounter;
+        public double fps;
+        public double timePerFrame;
 
         public Enemy(int x, int y)
         {
             counter = 0;
+            armor = new Stack<Helmet>();
             pos = new Vector2(x, y);
             dir = 1;
             eState = EnemyState.idle;
-            speed = 1;
+            speed = .5f;
             fps = 7.0;
             timePerFrame = 1.0 / fps;
             attackRange = 130;
+            scale = 1;
             rect = new Rectangle((int)pos.X, (int)pos.Y, 34, 25);
         }
 
@@ -65,7 +68,7 @@ namespace Armoire
             Animation();
         }
 
-        public void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb)
         {
             sb.Draw(MainManager.Instance.drawMan.spritesheet, pos, new Rectangle(
                                                                         frame * 34,
@@ -76,7 +79,14 @@ namespace Armoire
 
         public void Hit()
         {
-
+            if(armor.Count != 0)
+            {
+                MainManager.Instance.discardMan.DiscardArmor(armor.Pop());
+            }
+            else
+            {
+                MainManager.Instance.gameMan.toRemove = this;
+            }
         }
 
         public void Movement()
@@ -90,10 +100,12 @@ namespace Armoire
                 if(playerDistance <=0 )
                 {
                     pos.X -= speed;
+                    dir = 1;
                 }
                 else
                 {
                     pos.X += speed;
+                    dir = -1;
                 }
             }
         }

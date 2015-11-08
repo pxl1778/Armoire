@@ -51,7 +51,9 @@
     <Compile Include="Managers\UIManager.cs" />
     <Compile Include="Scripts\Armor.cs" />
     <Compile Include="Scripts\ChestPlate.cs" />
-    <Compile Include="Scripts\Enemy.cs" />
+    <Compile Include="Scripts\Enemies\Enemy.cs" />
+    <Compile Include="Scripts\Enemies\OrangeWorm.cs" />
+    <Compile Include="Scripts\Enemies\Pigeon.cs" />
     <Compile Include="Scripts\Gloves.cs" />
     <Compile Include="Scripts\Helmet.cs" />
     <Compile Include="Scripts\Platform.cs" />

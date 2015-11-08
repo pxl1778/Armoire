@@ -39,6 +39,8 @@ namespace Armoire
         public Random rand;
         public float armorScale;
         public int armorLevel;
+        public bool invincible;
+        public double invincibleCounter;
 
         public PlayerState pState;
         public DirectionState dState;
@@ -78,7 +80,8 @@ namespace Armoire
             rand = new Random();
             chargeCounter = 0.0;
             armorScale = 0;
-            armorLevel = 0;
+            armorLevel = 3;
+            invincible = false;
             Initialize();
         }
 
@@ -106,6 +109,14 @@ namespace Armoire
                 {
                     canDash = false;
                 }
+            }
+            if(invincibleCounter < 1)
+            {
+                invincibleCounter += MainManager.Instance.main.gameTime.ElapsedGameTime.TotalSeconds;
+            }
+            else
+            {
+                invincible = false;
             }
             //physics
             velocity += acceleration;
@@ -245,8 +256,9 @@ namespace Armoire
             
             foreach (Enemy e in MainManager.Instance.gameMan.enemies)
             {
-                if(e.rect.Intersects(rect))
+                if(e.rect.Intersects(rect) && invincible == false)
                 {
+                    invincible = true;
                     if(pState == PlayerState.dashing)
                     {
                         e.Hit();
@@ -257,6 +269,7 @@ namespace Armoire
                     }
                 }
             }
+            MainManager.Instance.gameMan.enemies.Remove(MainManager.Instance.gameMan.toRemove);
 
             foreach (Platform p in MainManager.Instance.gameMan.platforms)
             {
@@ -329,7 +342,8 @@ namespace Armoire
 
         public void Hit(int direction)
         {
-            velocity.X += 5 * direction;
+            armorLevel--;
+            velocity.X += 5 * -direction;
             if(gloves.Count != 0)
             {
                 MainManager.Instance.discardMan.DiscardArmor(gloves.Pop());
@@ -347,6 +361,7 @@ namespace Armoire
                 if(!(MainManager.Instance.uiMan.Top() is GameOverScreen))
                     MainManager.Instance.uiMan.PushScreen(new GameOverScreen());
             }
+            invincibleCounter = 0;
         }
 
         public void Draw(SpriteBatch sb)
