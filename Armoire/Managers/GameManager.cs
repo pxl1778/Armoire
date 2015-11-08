@@ -68,6 +68,23 @@ namespace Armoire
                         break;
                 }
             }
+
+            int enemyCount = br.ReadInt32();
+            for (int i = 0; i < enemyCount; i++ )
+            {
+                switch(br.ReadByte())
+                {
+                    case 1:
+                        enemies.Add(new Pigeon(br.ReadInt32(), br.ReadInt32()));
+                        break;
+                    case 2:
+                        enemies.Add(new OrangeWorm(br.ReadInt32(), br.ReadInt32()));
+                        break;
+                    case 3:
+                        enemies.Add(new Enemy(br.ReadInt32(), br.ReadInt32()));
+                        break;
+                }
+            }
             br.Close();
 
             enemies.Add(new Enemy(250, 1500));

@@ -105,6 +105,18 @@ namespace Armoire
                     bw.Write((int)a.position.X);
                     bw.Write((int)a.position.Y);
                 }
+                bw.Write(MainManager.Instance.gameMan.enemies.Count);
+                foreach (Enemy e in MainManager.Instance.gameMan.enemies)
+                {
+                    if (e is Pigeon)
+                        bw.Write((byte)1);
+                    else if (e is OrangeWorm)
+                        bw.Write((byte)2);
+                    else if (e is Enemy)
+                        bw.Write((byte)3);
+                    bw.Write((int)e.pos.X);
+                    bw.Write((int)e.pos.Y);
+                }
                 bw.Close();
             }
         }
