@@ -25,6 +25,7 @@ namespace Armoire
         public void DiscardArmor(Armor armor)
         {
             discardedArmor.Add(new DiscardedArmor { armor = armor, age = 0 });
+            MainManager.Instance.gameMan.player.armorLevel--;
         }
 
         public void Update()
