@@ -47,6 +47,27 @@ namespace Armoire
             {
                 platforms.Add(new Platform(br.ReadInt32(), br.ReadInt32(), br.ReadInt32(), br.ReadInt32()));
             }
+            
+            int armorPickupCount = br.ReadInt32();
+            armorPickups = new List<Armor>();
+            for (int i = 0; i < armorPickupCount; i++ )
+            {
+                switch(br.ReadByte())
+                {
+                    case 1:
+                        Gloves g = new Gloves((int)br.ReadInt32(), (int)br.ReadInt32(), new Random());
+                        armorPickups.Add(g);
+                        break;
+                    case 2:
+                        ChestPlate c = new ChestPlate((int)br.ReadInt32(), (int)br.ReadInt32(), new Random());
+                        armorPickups.Add(c);
+                        break;
+                    case 3:
+                        Helmet h = new Helmet((int)br.ReadInt32(), (int)br.ReadInt32(), new Random());
+                        armorPickups.Add(h);
+                        break;
+                }
+            }
             br.Close();
 
             enemies.Add(new Enemy(250, 350));
@@ -73,7 +94,8 @@ namespace Armoire
                 if (gState != GameState.paused)
                 {
                     //gState = GameState.paused;
-                    MainManager.Instance.uiMan.PushScreen(new PauseScreen());
+                    if(!(MainManager.Instance.uiMan.Top() is PauseScreen))
+                        MainManager.Instance.uiMan.PushScreen(new PauseScreen());
                 }
                 else
                 {
@@ -85,10 +107,14 @@ namespace Armoire
 
         public void Draw(SpriteBatch sb)
         {
+            sb.Draw(MainManager.Instance.drawMan.levelBackground, new Vector2(0, 0), new Rectangle(0, 0, 800, 400), Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.None, 0);
             player.Draw(sb);
-            foreach(Platform p in platforms)
+            if (gState == GameState.map_editor)
             {
-                p.Draw(sb);
+                foreach (Platform p in platforms)
+                {
+                    p.Draw(sb);
+                }
             }
             foreach(Armor a in armor)
             {

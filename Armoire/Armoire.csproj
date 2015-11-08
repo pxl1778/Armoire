@@ -71,6 +71,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Assets\level1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Assets\spritesheet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -84,6 +87,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\GameFont.spritefont">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\demo3.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\demo4.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\demo5.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\demo.map">

@@ -93,6 +93,18 @@ namespace Armoire
                     bw.Write(p.rect.Width);
                     bw.Write(p.rect.Height);
                 }
+                bw.Write(MainManager.Instance.gameMan.armorPickups.Count);
+                foreach(Armor a in MainManager.Instance.gameMan.armorPickups)
+                {
+                    if (a is Gloves)
+                        bw.Write((byte)1);
+                    else if (a is ChestPlate)
+                        bw.Write((byte)2);
+                    else if (a is Helmet)
+                        bw.Write((byte)3);
+                    bw.Write((int)a.position.X);
+                    bw.Write((int)a.position.Y);
+                }
                 bw.Close();
             }
         }
