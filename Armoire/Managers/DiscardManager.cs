@@ -34,10 +34,10 @@ namespace Armoire
             for(int i = 0; i < discardedArmor.Count; i++)
             {
                 DiscardedArmor da = discardedArmor[i];
-                da.armor.position.X -= 3;
+                da.armor.position.X -= 1;
                 //da.armor.position.Y--;
                 da.age++;
-                if (da.age > 15)
+                if (da.age > 60)
                     armorToRemove.Add(da);
                 discardedArmor[i] = da;
             }
