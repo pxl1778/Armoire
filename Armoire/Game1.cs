@@ -56,7 +56,8 @@ namespace Armoire
             MainManager.Instance.drawMan.spritesheet = Content.Load<Texture2D>("Assets/spritesheet.png");
             MainManager.Instance.drawMan.levelBackground = Content.Load<Texture2D>("Assets/level1.png");
             MainManager.Instance.drawMan.gameFont = Content.Load<SpriteFont>("GameFont");
-          
+            MainManager.Instance.drawMan.uiSpritesheet = Content.Load<Texture2D>("Assets/UIspritesheet.png");
+            MainManager.Instance.drawMan.titleScreenImage = Content.Load<Texture2D>("Assets/TitleScreen.png");
         }
 
         /// <summary>

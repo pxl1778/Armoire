@@ -15,9 +15,17 @@ namespace Armoire
         public override void Draw()
         {
             if(!this.Selected())
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Start Game", new Vector2(300, 300), Color.Black);
+                MainManager.Instance.main.spriteBatch.Draw(MainManager.Instance.drawMan.uiSpritesheet, new Vector2(250, 300), new Rectangle(
+                                                                                                                                0,
+                                                                                                                                0,
+                                                                                                                                500,
+                                                                                                                                120), Color.White, 0f, Vector2.Zero, .5f, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
             else
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Start Game", new Vector2(300, 300), Color.CadetBlue);
+                MainManager.Instance.main.spriteBatch.Draw(MainManager.Instance.drawMan.uiSpritesheet, new Vector2(250, 300), new Rectangle(
+                                                                                                                                0,
+                                                                                                                                133,
+                                                                                                                                650,
+                                                                                                                                120), Color.White, 0f, Vector2.Zero, .5f, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
         }
 
         public override void Update()
@@ -45,9 +53,16 @@ namespace Armoire
         public override void Draw()
         {
             if (!this.Selected())
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Start Map Editor", new Vector2(300, 320), Color.Black);
+                MainManager.Instance.main.spriteBatch.Draw(MainManager.Instance.drawMan.uiSpritesheet, new Vector2(250, 360), new Rectangle(    0,
+                                                                                                                                                266,
+                                                                                                                                                500,
+                                                                                                                                                120), Color.White, 0f, Vector2.Zero, .5f, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
             else
-                MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Start Map Editor", new Vector2(300, 320), Color.CadetBlue);
+                MainManager.Instance.main.spriteBatch.Draw(MainManager.Instance.drawMan.uiSpritesheet, new Vector2(250, 360), new Rectangle(
+                                                                                                                                                0,
+                                                                                                                                                399,
+                                                                                                                                                650,
+                                                                                                                                                120), Color.White, 0f, Vector2.Zero, .5f, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
         }
 
         public override void Update()
@@ -102,7 +117,7 @@ namespace Armoire
             // Add the menu items to our collection
             menuItems.Add(seb);
             menuItems.Add(sgb);
-            menuItems.Add(hb);
+            //menuItems.Add(hb);
 
             // Select start game by default
             this.SelectItem(sgb);
@@ -114,8 +129,7 @@ namespace Armoire
             base.Draw();
 
             MainManager.Instance.main.spriteBatch.Begin();
-            MainManager.Instance.main.spriteBatch.DrawString(MainManager.Instance.drawMan.gameFont, "Armoire", new Vector2(50, 50), Color.Black, 0, new Vector2(0,0), 5, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
-
+            MainManager.Instance.main.spriteBatch.Draw(MainManager.Instance.drawMan.titleScreenImage, Vector2.Zero, Color.White);
             foreach (LinkedMenuItem i in menuItems)
                 i.Draw();
 
