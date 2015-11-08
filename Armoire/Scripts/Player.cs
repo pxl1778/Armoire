@@ -224,6 +224,11 @@ namespace Armoire
                         chestplates.Push((ChestPlate)a);
                         armorToRemove.Add(a);
                     }
+                    else if (a is Helmet)
+                    {
+                        helmets.Push((Helmet)a);
+                        armorToRemove.Add(a);
+                    }
                     armorScale += .5f;
                     armorLevel++;
                     width = (int)(23 * armorScale);
@@ -339,7 +344,7 @@ namespace Armoire
             }
             else
             {
-
+                MainManager.Instance.uiMan.PushScreen(new GameOverScreen());
             }
         }
 

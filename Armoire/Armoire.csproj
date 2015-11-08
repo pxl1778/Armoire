@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameOverScreen.cs" />
     <Compile Include="IScreen.cs" />
     <Compile Include="LinkedMenuScreen.cs" />
     <Compile Include="Managers\DiscardManager.cs" />
