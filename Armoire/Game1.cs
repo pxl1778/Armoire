@@ -16,7 +16,7 @@ namespace Armoire
     {
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
-        Camera cam;
+        public Camera cam;
         public GameTime gameTime;
         bool upperRightNow = true;
         Vector2 upperRight;
@@ -80,8 +80,15 @@ namespace Armoire
             cam.Scale += MainManager.Instance.inputMan.CurGamePadState.Triggers.Right / 10;
             cam.Scale -= MainManager.Instance.inputMan.CurGamePadState.Triggers.Left / 10;
 
-
             cam.Update();
+
+            if (MainManager.Instance.inputMan.CurGamePadState.IsButtonDown(Buttons.Y) && MainManager.Instance.inputMan.PrevGamePadState.IsButtonUp(Buttons.Y))
+                if(MainManager.Instance.gameMan.player.gloves.Count > 0)
+                    MainManager.Instance.discardMan.DiscardArmor(MainManager.Instance.gameMan.player.gloves.Pop());
+
+            if (MainManager.Instance.inputMan.CurGamePadState.IsButtonDown(Buttons.X) && MainManager.Instance.inputMan.PrevGamePadState.IsButtonUp(Buttons.X))
+                if (MainManager.Instance.gameMan.player.chestplates.Count > 0)
+                    MainManager.Instance.discardMan.DiscardArmor(MainManager.Instance.gameMan.player.chestplates.Pop());
 
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
@@ -118,6 +125,16 @@ namespace Armoire
                         }
                     }
                 }
+                else if(MainManager.Instance.inputMan.CurKeyboardState.IsKeyDown(Keys.G) && MainManager.Instance.inputMan.PrevKeyboardState.IsKeyUp(Keys.G))
+                {
+                    Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    MainManager.Instance.gameMan.armorPickups.Add(new Gloves((int)pos.X, (int)pos.Y, MainManager.Instance.gameMan.player.rand));
+                }
+                else if (MainManager.Instance.inputMan.CurKeyboardState.IsKeyDown(Keys.C) && MainManager.Instance.inputMan.PrevKeyboardState.IsKeyUp(Keys.C))
+                {
+                    Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    MainManager.Instance.gameMan.armorPickups.Add(new ChestPlate((int)pos.X, (int)pos.Y, MainManager.Instance.gameMan.player.rand));
+                }
             }
 
             this.gameTime = gameTime;
@@ -140,6 +157,7 @@ namespace Armoire
             //Rectangle rect = new Rectangle(10, 10, 40, 40);
 
             MainManager.Instance.drawMan.Draw(MainManager.Instance.main.spriteBatch);
+            MainManager.Instance.discardMan.Draw(MainManager.Instance.main.spriteBatch);
             spriteBatch.End();
 
             // Draw UI last because it uses a different spriteBatch
