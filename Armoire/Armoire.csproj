@@ -104,6 +104,9 @@
     <None Include="Content\demo7.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\demo8.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Content\demo.map">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

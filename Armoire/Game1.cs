@@ -136,6 +136,22 @@ namespace Armoire
                     Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
                     MainManager.Instance.gameMan.armorPickups.Add(new ChestPlate((int)pos.X, (int)pos.Y, MainManager.Instance.gameMan.player.rand));
                 }
+                else if (MainManager.Instance.inputMan.CurKeyboardState.IsKeyDown(Keys.J) && MainManager.Instance.inputMan.PrevKeyboardState.IsKeyUp(Keys.J))
+                {
+                    Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    MainManager.Instance.gameMan.enemies.Add(new Enemy((int)pos.X, (int)pos.Y));
+                }
+                else if (MainManager.Instance.inputMan.CurKeyboardState.IsKeyDown(Keys.K) && MainManager.Instance.inputMan.PrevKeyboardState.IsKeyUp(Keys.K))
+                {
+                    Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    MainManager.Instance.gameMan.enemies.Add(new OrangeWorm((int)pos.X, (int)pos.Y));
+                }
+                else if (MainManager.Instance.inputMan.CurKeyboardState.IsKeyDown(Keys.L) && MainManager.Instance.inputMan.PrevKeyboardState.IsKeyUp(Keys.L))
+                {
+                    Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
+                    MainManager.Instance.gameMan.enemies.Add(new Pigeon((int)pos.X, (int)pos.Y));
+                }
+
             }
 
             this.gameTime = gameTime;
