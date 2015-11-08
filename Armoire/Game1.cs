@@ -149,7 +149,7 @@ namespace Armoire
                 else if (MainManager.Instance.inputMan.CurKeyboardState.IsKeyDown(Keys.L) && MainManager.Instance.inputMan.PrevKeyboardState.IsKeyUp(Keys.L))
                 {
                     Vector2 pos = (MainManager.Instance.inputMan.CurMouseState.Position.ToVector2() / cam.Scale) + cam.Position - cam.Origin;
-                    MainManager.Instance.gameMan.enemies.Add(new Pigeon((int)pos.X, (int)pos.Y));
+                    MainManager.Instance.gameMan.enemies.Add(new Pigeon((int)pos.X, (int)pos.Y, MainManager.Instance.gameMan.r));
                 }
 
             }

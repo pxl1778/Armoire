@@ -99,6 +99,7 @@ namespace Armoire
             {
                 MainManager.Instance.gameMan.toRemove = this;
             }
+            invincibleCounter = 0;
         }
 
         public void Movement()

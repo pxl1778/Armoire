@@ -77,7 +77,7 @@ namespace Armoire
                 switch(br.ReadByte())
                 {
                     case 1:
-                        enemies.Add(new Pigeon(br.ReadInt32(), br.ReadInt32()));
+                        enemies.Add(new Pigeon(br.ReadInt32(), br.ReadInt32(), r));
                         break;
                     case 2:
                         enemies.Add(new OrangeWorm(br.ReadInt32(), br.ReadInt32()));

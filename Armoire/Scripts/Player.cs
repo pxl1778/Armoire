@@ -176,13 +176,13 @@ namespace Armoire
         {
             if (pState != PlayerState.jumping && MainManager.Instance.inputMan.Jump && !MainManager.Instance.inputMan.PrevJump && canJump)
             {
-                steeringForce.Y -= 10;
+                steeringForce.Y -= 10*armorScale;
                 pState = PlayerState.jumping;
                 canJump = false;
             }
             else
             {
-                steeringForce.Y += .1f;
+                steeringForce.Y += .1f*armorScale;
             }
             if(MainManager.Instance.inputMan.MoveLeft && pState != PlayerState.charging)
             {
@@ -210,7 +210,7 @@ namespace Armoire
             {
                 velocity.X *= decceleration;
             }
-            steeringForce = Vector2.Clamp(steeringForce, new Vector2(-maxForce, -maxForce), new Vector2(maxForce, maxForce));
+            steeringForce = Vector2.Clamp(steeringForce, new Vector2(-maxForce*armorScale, -maxForce*armorScale), new Vector2(maxForce*armorScale, maxForce*armorScale));
             acceleration += steeringForce;
             steeringForce = new Vector2(0, 0);
         }
@@ -297,7 +297,11 @@ namespace Armoire
                     //pos.Y = p.rect.Y - rect.Height;
                     canJump = true;
                 }
-                
+                //protects against getting stuck inside of platforms when camera is shifting.
+                if((p.Collide(new Vector2(rect.X, rect.Y+rect.Height-1)) || p.Collide(new Vector2(rect.X+rect.Width, rect.Y+rect.Height-1))))
+                {
+                    pos.Y = p.rect.Y + p.rect.Height;
+                }
                 /*
                 if(p.rect.Intersects(new Rectangle((int)Math.Ceiling(rect.X + velocity.X), (int)Math.Ceiling(rect.Y + velocity.Y), rect.Width, rect.Height)) && pState != PlayerState.jumping) //(p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y)) || p.Collide(new Vector2(rect.X + rect.Width + 1, rect.Y + rect.Height)))
                 {
