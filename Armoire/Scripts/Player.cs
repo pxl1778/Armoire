@@ -344,7 +344,8 @@ namespace Armoire
             }
             else
             {
-                MainManager.Instance.uiMan.PushScreen(new GameOverScreen());
+                if(!(MainManager.Instance.uiMan.Top() is GameOverScreen))
+                    MainManager.Instance.uiMan.PushScreen(new GameOverScreen());
             }
         }
 

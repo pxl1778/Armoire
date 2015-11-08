@@ -12,6 +12,7 @@ namespace Armoire
         //Fields
         public Texture2D rectTexture;
         public Texture2D spritesheet;
+        public Texture2D levelBackground;
         public List<Texture2D> armorTextures;
         public SpriteFont gameFont;
 

@@ -25,6 +25,13 @@ namespace Armoire
             screenStack.Pop();
         }
 
+        public IScreen Top()
+        {
+            if (screenStack.Count == 0)
+                return null;
+            return screenStack.Peek();
+        }
+
         public void Draw()
         {
             if (screenStack.Count > 0)
