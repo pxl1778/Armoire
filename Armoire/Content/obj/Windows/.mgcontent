@@ -4,6 +4,6 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/armoire/Armoire/Content/GameFont.spritefont</File>
+    <File>D:/Users/jxf2190/Armoire/Armoire/Content/GameFont.spritefont</File>
   </SourceFiles>
 </SourceFileCollection>
