@@ -37,7 +37,8 @@ namespace Armoire
         public Stack<ChestPlate> chestplates;
         public Stack<Gloves> gloves;
         public Random rand;
-        public float armorLevel;
+        public float armorScale;
+        public int armorLevel;
 
         public PlayerState pState;
         public DirectionState dState;
@@ -76,6 +77,7 @@ namespace Armoire
             gloves = new Stack<Gloves>();
             rand = new Random();
             chargeCounter = 0.0;
+            armorScale = 0;
             armorLevel = 0;
             Initialize();
         }
@@ -85,7 +87,7 @@ namespace Armoire
             helmets.Push(new Helmet(0, 0, rand));
             chestplates.Push(new ChestPlate(250, 250, rand));
             gloves.Push(new Gloves(250, 250, rand));
-            armorLevel += 1.0f;
+            armorScale += 1.0f;
         }
 
         public void Update()
@@ -222,13 +224,19 @@ namespace Armoire
                         chestplates.Push((ChestPlate)a);
                         armorToRemove.Add(a);
                     }
-                    armorLevel += .5f;
-                    width = (int)(23 * armorLevel);
-                    height = (int)(45 * armorLevel);
+                    else if (a is Helmet)
+                    {
+                        helmets.Push((Helmet)a);
+                        armorToRemove.Add(a);
+                    }
+                    armorScale += .5f;
+                    armorLevel++;
+                    width = (int)(23 * armorScale);
+                    height = (int)(45 * armorScale);
                     pos.X -= 12;
                     pos.Y -= 23;
                     rect = new Rectangle(rect.X - 12, rect.Y - 23, width, height);
-                    MainManager.Instance.main.cam.Scale = 1.0f / armorLevel;
+                    MainManager.Instance.main.cam.Scale = 1.0f / armorScale;
                 }
             }
 
@@ -245,7 +253,7 @@ namespace Armoire
                     }
                     else
                     {
-                        Hit();
+                        Hit(e.dir);
                     }
                 }
             }
@@ -319,8 +327,9 @@ namespace Armoire
             }
         }
 
-        public void Hit()
+        public void Hit(int direction)
         {
+            velocity.X += 5 * direction;
             if(gloves.Count != 0)
             {
                 MainManager.Instance.discardMan.DiscardArmor(gloves.Pop());
@@ -335,7 +344,7 @@ namespace Armoire
             }
             else
             {
-
+                MainManager.Instance.uiMan.PushScreen(new GameOverScreen());
             }
         }
 
@@ -347,7 +356,7 @@ namespace Armoire
                                                 frame * 25,
                                                 0,
                                                 23,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.None, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.None, 0);
                 if(helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, frame, dState);
@@ -367,7 +376,7 @@ namespace Armoire
                                                 frame * 25,
                                                 0,
                                                 23,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.FlipHorizontally, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.FlipHorizontally, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, frame, dState);
@@ -387,7 +396,7 @@ namespace Armoire
                                                 0,
                                                 0,
                                                 22,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.None, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.None, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -407,7 +416,7 @@ namespace Armoire
                                                 0,
                                                 0,
                                                 22,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.FlipHorizontally, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.FlipHorizontally, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -427,7 +436,7 @@ namespace Armoire
                                                 127,
                                                 0,
                                                 23,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.None, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.None, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -447,7 +456,7 @@ namespace Armoire
                                                 127,
                                                 0,
                                                 23,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.FlipHorizontally, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.FlipHorizontally, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -467,7 +476,7 @@ namespace Armoire
                                                 50,
                                                 0,
                                                 23,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.None, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.None, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -487,7 +496,7 @@ namespace Armoire
                                                 50,
                                                 0,
                                                 23,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.FlipHorizontally, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.FlipHorizontally, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -507,7 +516,7 @@ namespace Armoire
                                                 154,
                                                 0,
                                                 28,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.None, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.None, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -527,7 +536,7 @@ namespace Armoire
                                                 154,
                                                 0,
                                                 28,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.FlipHorizontally, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.FlipHorizontally, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -547,7 +556,7 @@ namespace Armoire
                                                 190,
                                                 0,
                                                 35,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.None, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.None, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
@@ -567,7 +576,7 @@ namespace Armoire
                                                 190,
                                                 0,
                                                 35,
-                                                45), Color.White, 0, Vector2.Zero, (float)armorLevel, SpriteEffects.FlipHorizontally, 0);
+                                                45), Color.White, 0, Vector2.Zero, (float)armorScale, SpriteEffects.FlipHorizontally, 0);
                 if (helmets.Count != 0)
                 {
                     helmets.Peek().Draw(sb, dState);
