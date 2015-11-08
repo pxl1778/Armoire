@@ -104,7 +104,7 @@ namespace Armoire
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(MainManager.Instance.drawMan.levelBackground, new Vector2(0, 0), new Rectangle(0, 0, 800, 400), Color.White, 0.0f, new Vector2(0, 0), 5.0f, SpriteEffects.None, 0);
+            sb.Draw(MainManager.Instance.drawMan.levelBackground, new Vector2(0, 0), new Rectangle(0, 0, 3300, 1650), Color.White, 0.0f, new Vector2(0, 0), 1.0f, SpriteEffects.None, 0);
             player.Draw(sb);
             if (gState == GameState.map_editor)
             {
