@@ -22,6 +22,7 @@ namespace Armoire
         public List<Armor> armor;
         public List<Enemy> enemies;
         public List<Armor> armorPickups;
+        public Enemy toRemove;
         public GameState gState;
 
         public GameManager()
@@ -48,7 +49,9 @@ namespace Armoire
             }
             br.Close();
 
-            enemies.Add(new Enemy(250, 250));
+            enemies.Add(new Enemy(250, 350));
+            enemies.Add(new OrangeWorm(-200, 0));
+            enemies.Add(new Pigeon(1000, 370));
             armor.Add(new Helmet(250, 250, player.rand));
             armorPickups.Add(new Gloves(627, 403, player.rand));
         }

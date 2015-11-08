@@ -21,54 +21,50 @@ namespace Armoire
         
         public override void DrawPickup(SpriteBatch sb)
         {
-            sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
-        }
-         
-
-        public override void Draw(SpriteBatch sb)
-        {
-            sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
+            sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, MainManager.Instance.gameMan.player.armorScale + .2f, SpriteEffects.None, 0);
         }
 
         public void Draw(SpriteBatch sb, float frame, DirectionState ds)
         {
+            float s = MainManager.Instance.gameMan.player.armorScale + .2f;
             if (frame == 0)
             {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X -3, MainManager.Instance.gameMan.player.pos.Y - 4 + 9);
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X -3, MainManager.Instance.gameMan.player.pos.Y + 5*s);
             }
             if (frame == 1)
             {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X -3, MainManager.Instance.gameMan.player.pos.Y - 6 + 9);
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X -3, MainManager.Instance.gameMan.player.pos.Y + 3*s);
             }
             if (frame == 2)
             {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X -3, MainManager.Instance.gameMan.player.pos.Y - 2 + 9);
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X -3, MainManager.Instance.gameMan.player.pos.Y + 7*s);
             }
             if (frame == 3)
             {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X-3, MainManager.Instance.gameMan.player.pos.Y - 4+9);
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X-3, MainManager.Instance.gameMan.player.pos.Y +5*s);
             }
             if (frame == 4)
             {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X-3, MainManager.Instance.gameMan.player.pos.Y - 4+9);
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X-3, MainManager.Instance.gameMan.player.pos.Y +5*s);
             }
             if (ds == DirectionState.right)
             {
-                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, MainManager.Instance.gameMan.player.armorScale + .2f, SpriteEffects.None, 0);
             }
             else
             {
-                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.FlipHorizontally, 0);
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, MainManager.Instance.gameMan.player.armorScale + .2f, SpriteEffects.FlipHorizontally, 0);
 
             }
         }
 
         public void Draw(SpriteBatch sb, DirectionState ds)
         {
-            position = new Vector2(MainManager.Instance.gameMan.player.pos.X - 1, MainManager.Instance.gameMan.player.pos.Y - 2 + 8);
+            float s = MainManager.Instance.gameMan.player.armorScale + .2f;
+            position = new Vector2(MainManager.Instance.gameMan.player.pos.X - 1, MainManager.Instance.gameMan.player.pos.Y +6 * s);
             if (MainManager.Instance.inputMan.Charge)
             {
-                position = new Vector2(MainManager.Instance.gameMan.player.pos.X, MainManager.Instance.gameMan.player.pos.Y - 4 + 15);
+                position = new Vector2(MainManager.Instance.gameMan.player.pos.X, MainManager.Instance.gameMan.player.pos.Y +11 * s);
             }
             if (MainManager.Instance.gameMan.player.pState == PlayerState.dashing && ds == DirectionState.left)
             {
@@ -76,11 +72,11 @@ namespace Armoire
             }
             if (ds == DirectionState.right)
             {
-                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.None, 0);
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, MainManager.Instance.gameMan.player.armorScale + .2f, SpriteEffects.None, 0);
             }
             else
             {
-                sb.Draw(MainManager.Instance.drawMan.spritesheet, position - new Vector2(5, 0), selectionRect, color, 0, Vector2.Zero, 1.2f, SpriteEffects.FlipHorizontally, 0);
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, position - new Vector2(5, 0), selectionRect, color, 0, Vector2.Zero, MainManager.Instance.gameMan.player.armorScale + .2f, SpriteEffects.FlipHorizontally, 0);
             }
         }
 
