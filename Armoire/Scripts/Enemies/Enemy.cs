@@ -66,7 +66,7 @@ namespace Armoire
                 invincible = false;
             }
             playerDistance = MainManager.Instance.gameMan.player.pos.X - pos.X;
-            if(Math.Abs(playerDistance) < attackRange)
+            if(Math.Abs(playerDistance) < attackRange && Math.Abs(MainManager.Instance.gameMan.player.pos.Y - pos.Y) < 10)
             {
                 eState = EnemyState.attacking;
             }

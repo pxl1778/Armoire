@@ -56,7 +56,7 @@ namespace Armoire
         public int Height { get { return height; } set { height = value; } }
         public Rectangle Rect { get { return rect; } set { rect = value; } }
 
-        public Player()
+        public Player(Random rand)
         {
             pos = new Vector2(MainManager.Instance.main.GraphicsDevice.Viewport.Width / 2, MainManager.Instance.main.GraphicsDevice.Viewport.Height / 2);
             velocity = new Vector2(0, 0);
@@ -77,7 +77,7 @@ namespace Armoire
             helmets = new Stack<Helmet>();
             chestplates = new Stack<ChestPlate>();
             gloves = new Stack<Gloves>();
-            rand = new Random();
+            this.rand = rand;
             chargeCounter = 0.0;
             armorScale = 0;
             armorLevel = 3;
@@ -256,7 +256,7 @@ namespace Armoire
             
             foreach (Enemy e in MainManager.Instance.gameMan.enemies)
             {
-                if(e.rect.Intersects(rect) && invincible == false)
+                if(e.rect.Intersects(rect) && invincible == false && e.invincible == false)
                 {
                     
                     if(pState == PlayerState.dashing)

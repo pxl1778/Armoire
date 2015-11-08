@@ -87,11 +87,11 @@ namespace Armoire
             position.Y += 2;
             if(e.dir ==1)
             {
-                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, e.scale, SpriteEffects.None, 0);
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, position + new Vector2(15*e.scale, 0), selectionRect, color, 0, Vector2.Zero, e.scale, SpriteEffects.None, 0);
             }
             else
             {
-                sb.Draw(MainManager.Instance.drawMan.spritesheet, position + new Vector2(5, 0), selectionRect, color, 0, Vector2.Zero, e.scale, SpriteEffects.FlipHorizontally, 0);
+                sb.Draw(MainManager.Instance.drawMan.spritesheet, position, selectionRect, color, 0, Vector2.Zero, e.scale, SpriteEffects.FlipHorizontally, 0);
             }
         }
     }
