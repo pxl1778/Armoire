@@ -58,7 +58,7 @@ namespace Armoire
 
         public Player(Random rand)
         {
-            pos = new Vector2(MainManager.Instance.main.GraphicsDevice.Viewport.Width / 2, MainManager.Instance.main.GraphicsDevice.Viewport.Height / 2);
+            pos = new Vector2(50, 1100);
             velocity = new Vector2(0, 0);
             acceleration = new Vector2(0, 0);
             forward = new Vector2(1, 0);
@@ -79,18 +79,14 @@ namespace Armoire
             gloves = new Stack<Gloves>();
             this.rand = rand;
             chargeCounter = 0.0;
-            armorScale = 0;
-            armorLevel = 3;
+            armorScale = 1.0f;
+            armorLevel = 0;
             invincible = false;
             Initialize();
         }
 
         public void Initialize()
         {
-            helmets.Push(new Helmet(0, 0, rand));
-            chestplates.Push(new ChestPlate(250, 250, rand));
-            gloves.Push(new Gloves(250, 250, rand));
-            armorScale += 1.0f;
         }
 
         public void Update()
@@ -101,7 +97,7 @@ namespace Armoire
             if(pState == PlayerState.charging)
             {
                 chargeCounter += MainManager.Instance.main.gameTime.ElapsedGameTime.TotalSeconds;
-                if(chargeCounter > .4)
+                if(chargeCounter > .2)
                 {
                     canDash = true;
                 }
